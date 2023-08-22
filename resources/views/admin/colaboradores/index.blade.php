@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @include('admin.colaboradores.table');
+    @include('admin.colaboradores.table')
 @endsection

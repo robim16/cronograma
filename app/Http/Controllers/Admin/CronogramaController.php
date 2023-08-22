@@ -33,6 +33,7 @@ class CronogramaController extends Controller
                 'start' => $event->start,
                 'end' => $event->end,
                 'allDay'=> true,
+                'id' => $event->id,
                 'extendedProps'=> [
                     'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,
                     'estado' => $event->estado->nombre
@@ -42,6 +43,12 @@ class CronogramaController extends Controller
         
         return response()->json(collect($data));
        
+    }
+
+
+    public function event_update(Request $request, Actividad $actividade)
+    {
+        return response()->json($actividade);
     }
 }
 

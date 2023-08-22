@@ -30,7 +30,7 @@
                             <th>Fecha de fin</th>
                             <th>Colaborador</th>
                             <th>Estado</th>
-                            <th colspan="2">Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,19 +44,20 @@
                                 <td>{{ $actividad->colaborador->nombres }} {{ $actividad->colaborador->apellidos }}</td>
                                 <td>{{ $actividad->estado->nombre }}</td>
                                 <td>
-                                    <a href="{{ route('actividades.edit', $actividad->id)}}" class="btn btn-success btn-sm">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <form action="{{ route('actividades.destroy', $actividad->id)}}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <div class="btn-group">
+                                        <a href="{{ route('actividades.edit', $actividad->id)}}" class="btn btn-success btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    
+                                        <form action="{{ route('actividades.destroy', $actividad->id)}}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -75,6 +76,10 @@
 <script>
     $('#tabla-actividades').DataTable({
         "scrollX": true,
+        "dom": 'Bfrtip',
+        "buttons": [
+            'excel', 'pdf', 'print'
+        ],
         "fnInitComplete": function(){
             // Enable THEAD scroll bars
             $('.dataTables_scrollHead').css('overflow', 'auto');

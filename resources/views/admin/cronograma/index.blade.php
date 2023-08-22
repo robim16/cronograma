@@ -154,7 +154,11 @@
                     return { domNodes: arrayOfDomNodes}
                 },
                 eventClick: function(info) {
-                    alert('Event: ' + info.event.title);
+                    alert('Event: ' + info.event.id);
+
+                    // axios.put(SITEURL + info.id)
+                    //     .then(res => console.log(res.data))
+                    //     .catch(err => console.log(err));  
                     
                 }
             })
