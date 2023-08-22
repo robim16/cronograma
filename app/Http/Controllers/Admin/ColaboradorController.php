@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Colaborador;
 use Illuminate\Http\Request;
 
 class ColaboradorController extends Controller
@@ -14,7 +15,11 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-        //
+        $colaboradores = Colaborador::orderBy('nombres')
+            ->orderBy('apellidos')
+            ->get();
+
+        return view('admin.colaboradores.index', compact('colaboradores'));
     }
 
     /**

@@ -10,6 +10,14 @@ class Actividad extends Model
     use HasFactory;
     protected $table = 'actividades';
 
+    protected $fillable = [
+        'descripcion',
+        'fecha_inicio',
+        'fecha_fin',
+        'colaborador_id',
+        'estado_id'
+    ];
+
     public function colaborador()
     {
         return $this->belongsTo(Colaborador::class);

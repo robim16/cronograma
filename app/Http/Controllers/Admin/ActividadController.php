@@ -90,9 +90,9 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Actividad $actividade)
     {
-        //
+        $actividad = $actividade->update($request->all());
     }
 
     /**
