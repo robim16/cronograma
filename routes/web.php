@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ActividadController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ColaboradorController;
+use App\Http\Controllers\Admin\CronogramaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,14 +25,21 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::prefix('admin')->group(function () {
+    Route::resource('actividades', ActividadController::class);
+    Route::resource('colaboradores', ColaboradorController::class);
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::namespace('Admin')->group(function () {
+    Route::prefix('admin')->group(function () {
 
-Auth::routes();
+        Route::get('/', [AdminController::class, 'index'])->name('admin');
+        
+        
+        Route::prefix('cronograma')->group(function () {
+            Route::get('/', [CronogramaController::class, 'index'])->name('cronograma.index');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+            Route::get('/events', [CronogramaController::class, 'events']);
+        });
+    });
+});
