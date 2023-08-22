@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ColaboradorRequest extends FormRequest
@@ -13,7 +14,7 @@ class ColaboradorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,38 @@ class ColaboradorRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            //
-        ];
+        $method = $request->method();
+
+        switch($method):
+
+            case 'POST':
+                $rules = [
+                    'identificacion' => 'required|unique:colaboradores',
+                    'nombres' => 'required',
+                    'apellidos' => 'required',
+                    'direccion' => 'required',
+                    'telefono' => 'required',
+                    'email' => 'required'
+                ];
+                break;
+
+            case 'PUT':
+                $rules = [
+                    'identificacion' => 'required|unique:colaboradores,identificacion,{$this->colaborador->id}',
+                    'nombres' => 'required',
+                    'apellidos' => 'required',
+                    'direccion' => 'required',
+                    'telefono' => 'required',
+                    'email' => 'required'
+                ];
+                break;
+            case 'PATCH':
+
+            default: break;
+        endswitch;
+
+        return $rules;
     }
 }
