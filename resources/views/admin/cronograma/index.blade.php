@@ -126,10 +126,23 @@
                 displayEventTime: false,
                 editable: true,
                 selectable: true,
-                eventDidMount: function(info) {
-                    var colaborador = info.event.extendedProps.colaborador;
-                    $(info.el).find('.fc-title').append("<div>" + colaborador + "</div>");
-                    // info.el.children[1].innerHTML = colaborador
+                // eventDidMount: function(info) {
+                //     var colaborador = info.event.extendedProps.colaborador;
+                //     $(info.el).find('.fc-title').append("<div>" + colaborador + "</div>");
+                //     // info.el.children[1].innerHTML = colaborador
+                // },
+                eventContent: function(arg) {
+                    var colaborador = arg.event.extendedProps.colaborador;
+                    let italicEl = document.createElement('i')
+
+                    if (arg.event.extendedProps.colaborador) {
+                        italicEl.innerHTML =`<div> ${colaborador}</div>`
+                    } else {
+                        italicEl.innerHTML = 'normal event'
+                    }
+
+                    let arrayOfDomNodes = [ italicEl ]
+                    return { domNodes: arrayOfDomNodes}
                 },
                 eventClick: function(event) {
                     var deleteMsg = confirm("Do you really want to delete?");
