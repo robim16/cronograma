@@ -29,7 +29,7 @@ class ColaboradorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.colaboradores.create');
     }
 
     /**
@@ -38,9 +38,9 @@ class ColaboradorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Colaborador $colaboradore)
     {
-        //
+        $colaborador = $colaboradore->update($request->all());
     }
 
     /**
@@ -60,9 +60,9 @@ class ColaboradorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Colaborador $colaboradore)
     {
-        //
+        return view('admin.colaboradores.edit', compact('colaboardore'));
     }
 
     /**
