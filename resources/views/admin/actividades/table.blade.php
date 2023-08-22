@@ -21,7 +21,7 @@
             <div class="card-body table-responsive p-0">
                 <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
                     class="fas fa-plus"></i> Crear</a>
-                <table class="table table-hover text-nowrap">
+                <table id="tabla-actividades" class="table table-hover text-nowrap">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -70,3 +70,26 @@
     </div>
 </div>
 <!-- /.row -->
+
+@push('scripts')
+<script>
+    $('#tabla-actividades').DataTable({
+        "scrollX": true,
+        "fnInitComplete": function(){
+            // Enable THEAD scroll bars
+            $('.dataTables_scrollHead').css('overflow', 'auto');
+
+            // Sync THEAD scrolling with TBODY
+            $('.dataTables_scrollHead').on('scroll', function () {
+                $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            });                    
+        },
+        "order": [
+            [0, "desc"]
+        ],
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
+        }
+    });
+</script>
+@endpush

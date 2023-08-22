@@ -8,6 +8,16 @@
 @endsection
 
 @section('content')
+
+    @push('styles')
+        <style>
+            .fc-daygrid-event {
+                white-space: normal !important;
+                align-items: normal !important;
+            }
+        </style>
+    @endpush
+
     <div class="container">
         <h1>Cronograma de actividades</h1>
         <div id='calendar'></div>
@@ -126,17 +136,16 @@
                 displayEventTime: false,
                 editable: true,
                 selectable: true,
-                // eventDidMount: function(info) {
-                //     var colaborador = info.event.extendedProps.colaborador;
-                //     $(info.el).find('.fc-title').append("<div>" + colaborador + "</div>");
-                //     // info.el.children[1].innerHTML = colaborador
-                // },
                 eventContent: function(arg) {
                     var colaborador = arg.event.extendedProps.colaborador;
+                    var estado = arg.event.extendedProps.estado;
+
                     let italicEl = document.createElement('i')
 
                     if (arg.event.extendedProps.colaborador) {
-                        italicEl.innerHTML =`<div> ${colaborador}</div>`
+                        italicEl.innerHTML =`<div>${arg.event.title}</div>
+                            <div> ${colaborador}</div>
+                            <div> ${estado}</div>`
                     } else {
                         italicEl.innerHTML = 'normal event'
                     }
@@ -144,24 +153,9 @@
                     let arrayOfDomNodes = [ italicEl ]
                     return { domNodes: arrayOfDomNodes}
                 },
-                eventClick: function(event) {
-                    var deleteMsg = confirm("Do you really want to delete?");
-                    if (deleteMsg) {
-                        // $.ajax({
-                        //     type: "POST",
-                        //     url: SITEURL + '/fullcalenderAjax',
-                        //     data: {
-                        //         id: event.id,
-                        //         type: 'delete'
-                        //     },
-                        //     success: function(response) {
-                        //         calendar.fullCalendar('removeEvents', event.id);
-                        //         displayMessage("Event Deleted Successfully");
-                        //     }
-                        // });
-                        let fecha_inicio = calendar.formatDate(event.start, "Y-MM-DD")
-                        alert(fecha_inicio)
-                    }
+                eventClick: function(info) {
+                    alert('Event: ' + info.event.title);
+                    
                 }
             })
 

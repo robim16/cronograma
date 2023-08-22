@@ -34,7 +34,8 @@ class CronogramaController extends Controller
                 'end' => $event->end,
                 'allDay'=> true,
                 'extendedProps'=> [
-                    'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos
+                    'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,
+                    'estado' => $event->estado->nombre
                 ]
             ];
         }
