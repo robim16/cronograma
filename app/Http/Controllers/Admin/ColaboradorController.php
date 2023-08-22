@@ -38,9 +38,9 @@ class ColaboradorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Colaborador $colaboradore)
+    public function store(Request $request)
     {
-        $colaborador = $colaboradore->update($request->all());
+        $colaborador = Colaborador::create($request->all());
     }
 
     /**

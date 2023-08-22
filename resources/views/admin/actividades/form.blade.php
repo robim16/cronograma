@@ -24,17 +24,26 @@
                     <label for="descripcion">Descripción</label>
                     <input type="text" id="descripcion" name="descripcion" class="form-control"
                         value="{{ old('descripcion') ?? @$actividade->descripcion }}">
+                    @if ($errors->has('descripcion'))
+                        <span class="text-danger">{{ $errors->first('descripcion') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="fecha_inicio">Fecha de inicio</label>
                     <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control"
                         value="{{ old('fecha_inicio') ?? @$actividade->fecha_inicio }}">
+                    @if ($errors->has('fecha_inicio'))
+                        <span class="text-danger">{{ $errors->first('fecha_inicio') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="fecha_fin">Fecha de fin</label>
                     <input type="date" id="fecha_fin" name="fecha_fin" class="form-control"
                         value="{{ old('fecha_fin') ?? @$actividade->fecha_fin }}">
+                    @if ($errors->has('fecha_fin'))
+                        <span class="text-danger">{{ $errors->first('fecha_fin') }}</span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="colaborador_id">Colaborador</label>
@@ -46,6 +55,9 @@
                             @endif>{{ $colaborador->nombres }} {{ $colaborador->apellidos }}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('colaborador_id'))
+                        <span class="text-danger">{{ $errors->first('colaborador_id') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
@@ -58,6 +70,9 @@
                             @endif>{{ $estado->nombre }}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('estado_id'))
+                        <span class="text-danger">{{ $errors->first('estado_id') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">

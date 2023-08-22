@@ -50,7 +50,7 @@ class ActividadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $actividad = Actividad::create($request->all());
     }
 
     /**

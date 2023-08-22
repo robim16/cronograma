@@ -24,36 +24,54 @@
                     <label for="identificacion">Identificación</label>
                     <input type="text" id="identificacion" name="identificacion" class="form-control"
                         value="{{ old('identificacion') ?? @$colaboradore->identificacion }}">
+                    @if ($errors->has('identificacion'))
+                        <span class="text-danger">{{ $errors->first('identificacion') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="nombres">Nombres</label>
                     <input type="text" id="nombres" name="nombres" class="form-control"
                         value="{{ old('nombres') ?? @$colaboradore->nombres }}">
+                    @if ($errors->has('nombres'))
+                        <span class="text-danger">{{ $errors->first('nombres') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="apellidos">Apellidos</label>
                     <input type="text" id="apellidos" name="apellidos" class="form-control"
                         value="{{ old('apellidos') ?? @$colaboradore->apellidos }}">
+                    @if ($errors->has('apellidos'))
+                        <span class="text-danger">{{ $errors->first('apellidos') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
                     <input type="text" id="direccion" name="direccion" class="form-control"
                         value="{{ old('direccion') ?? @$colaboradore->direccion }}">
+                    @if ($errors->has('direccion'))
+                        <span class="text-danger">{{ $errors->first('direccion') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
                     <input type="text" id="telefono" name="telefono" class="form-control"
                         value="{{ old('telefono') ?? @$colaboradore->telefono }}">
+                    @if ($errors->has('telefono'))
+                        <span class="text-danger">{{ $errors->first('telefono') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control"
                         value="{{ old('email') ?? @$colaboradore->email }}">
+                    @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group">

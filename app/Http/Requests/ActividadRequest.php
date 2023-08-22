@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ActividadRequest extends FormRequest
@@ -13,7 +14,7 @@ class ActividadRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,36 @@ class ActividadRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            //
-        ];
+        $method = $request->method();
+
+        switch($method):
+
+            case 'POST':
+                $rules = [
+                    'descripcion' => 'required',
+                    'fecha_inicio' => 'required',
+                    'fecha_fin' => 'required',
+                    'colaborador_id' => 'required',
+                    'estado_id' => 'required'
+                ];
+                break;
+
+            case 'PUT':
+                $rules = [
+                    'descripcion' => 'required',
+                    'fecha_inicio' => 'required',
+                    'fecha_fin' => 'required',
+                    'colaborador_id' => 'required',
+                    'estado_id' => 'required'
+                ];
+                break;
+            case 'PATCH':
+
+            default: break;
+        endswitch;
+
+        return $rules;
     }
 }
