@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ColaboradorRequest;
 use App\Models\Colaborador;
 use Illuminate\Http\Request;
 
@@ -38,9 +39,12 @@ class ColaboradorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ColaboradorRequest $request)
     {
         $colaborador = Colaborador::create($request->all());
+
+        session()->flash('message', ['success', ("Se ha creado el colaborador")]);
+        return redirect()->route('colaboradores.index');
     }
 
     /**
@@ -62,7 +66,7 @@ class ColaboradorController extends Controller
      */
     public function edit(Colaborador $colaboradore)
     {
-        return view('admin.colaboradores.edit', compact('colaboardore'));
+        return view('admin.colaboradores.edit', compact('colaboradore'));
     }
 
     /**
@@ -72,9 +76,12 @@ class ColaboradorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ColaboradorRequest $request, Colaborador $colaboradore)
     {
-        //
+        $colaborador = $colaboradore->update($request->all());
+
+        session()->flash('message', ['success', ("Se ha actualizado el colaborador")]);
+        return redirect()->route('colaboradores.index');
     }
 
     /**

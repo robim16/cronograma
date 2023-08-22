@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActividadRequest;
 use App\Models\Actividad;
 use App\Models\Colaborador;
 use App\Models\Estado;
@@ -48,9 +49,12 @@ class ActividadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActividadRequest $request)
     {
         $actividad = Actividad::create($request->all());
+
+        session()->flash('message', ['success', ("Se ha creado la actividad")]);
+        return redirect()->route('actividades.index');
     }
 
     /**
@@ -90,9 +94,12 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Actividad $actividade)
+    public function update(ActividadRequest $request, Actividad $actividade)
     {
         $actividad = $actividade->update($request->all());
+
+        session()->flash('message', ['success', ("Se ha actualizado la actividad")]);
+        return redirect()->route('actividades.index');
     }
 
     /**
