@@ -28,12 +28,11 @@
 @endsection
 
 @push('scripts')
-    {{-- <script src="{{ asset('fullcalendar-6.1.8/dist/index.global.js') }}"></script> --}}
-
     <script>
+        var SITEURL = "{{ url('/') }}";
+
         $(document).ready(function() {
 
-            var SITEURL = "{{ url('/') }}";
 
             $.ajaxSetup({
                 headers: {
@@ -157,6 +156,9 @@
                 },
                 eventClick: function(info) {
 
+                    $('#descripcion').val(info.event.title);
+                    $('#event_id').val(info.event.id);
+
                     axios.get(`${SITEURL}/api/colaboradores`)
                         .then(function (res) {
                             var col = info.event.extendedProps.colaborador_id
@@ -167,23 +169,44 @@
                                     </option>`);
                             });
 
-                            $('#descripcion').val(info.event.title);
-                            $('#modal-actividad').modal('show');
                         })
                         .catch(err => console.log(err));
 
 
 
+                    axios.get(`${SITEURL}/api/estados`)
+                        .then(function (res) {
+                            var est = info.event.extendedProps.estado_id
 
-                    // axios.put(`${SITEURL}/admin/cronograma/${info.event.id}`)
-                    //     .then(res => console.log(res.data))
-                    //     .catch(err => console.log(err));  
+                            $.each(res.data, function (index, estado) {
+                                $("#estado_id").append(`<option value="${estado.id}" ${est == estado.id ? 'selected' : ''}>
+                                    ${estado.nombre}</option>`);
+                            });
+
+                        })
+                        .catch(err => console.log(err));
                     
+                    $('#modal-actividad').modal('show');
                 }
             })
 
             calendar.render()
         });
 
+
+        function event_update() {
+            let id = $('#event_id').val();
+            let title = $('#descripcion').val();
+            let colaborador = $('#colaborador_id').val();
+            let estado = $('#estado_id').val();
+
+            axios.put(`${SITEURL}/admin/cronograma/actividad/${id}`, {
+                title,
+                colaborador,
+                estado
+            })
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err));  
+        }
     </script>
 @endpush

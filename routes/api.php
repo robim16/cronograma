@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ColaboradorController;
+use App\Http\Controllers\Api\EstadoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('colaboradores')->group(function () {
     Route::get('/', [ColaboradorController::class, 'index']);
+});
+
+Route::prefix('estados')->group(function () {
+    Route::get('/', [EstadoController::class, 'index']);
 });

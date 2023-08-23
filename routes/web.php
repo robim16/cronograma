@@ -40,7 +40,7 @@ Route::namespace('Admin')->group(function () {
             Route::get('/', [CronogramaController::class, 'index'])->name('cronograma.index');
 
             Route::get('/events', [CronogramaController::class, 'events']);
-            Route::put('/{actividade}', [CronogramaController::class, 'event_update']);
+            Route::put('/actividad/{actividade}', [CronogramaController::class, 'event_update']);
         });
     });
 });

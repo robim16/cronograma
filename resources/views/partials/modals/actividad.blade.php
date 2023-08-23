@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('actividades.store') }}" method="post">
+                <form action="" method="post">
                     @method('POST')
                
                     @csrf
@@ -17,6 +17,7 @@
                         <label for="descripcion">Descripción</label>
                         <input type="text" id="descripcion" name="descripcion" class="form-control"
                             value="">
+                        <input type="hidden" name="event_id" id="event_id">
                     </div>
 
                     <div class="form-group">
@@ -26,11 +27,17 @@
                         </select>
                         
                     </div>
+                    <div class="form-group">
+                        <label for="estado_id">Estado</label>
+                        <select name="estado_id" id="estado_id" class="form-control">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" onclick="event_update()">Guardar</button>
             </div>
         </div>
         <!-- /.modal-content -->

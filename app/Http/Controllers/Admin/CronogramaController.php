@@ -37,7 +37,8 @@ class CronogramaController extends Controller
                 'extendedProps'=> [
                     'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,
                     'estado' => $event->estado->nombre,
-                    'colaborador_id' => $event->colaborador->id
+                    'colaborador_id' => $event->colaborador->id,
+                    'estado_id' => $event->estado->id,
                 ]
             ];
         }
@@ -49,7 +50,17 @@ class CronogramaController extends Controller
 
     public function event_update(Request $request, Actividad $actividade)
     {
-        return response()->json($actividade);
+
+        $actividade->descripcion = $request->title;
+
+        $actividade->colaborador_id = $request->colaborador;
+
+        $actividade->estado_id = $request->estado;
+
+        $actividade->save();
+
+        return $actividade;
+        // return response()->json($actividade);
     }
 }
 
