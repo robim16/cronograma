@@ -36,7 +36,8 @@ class CronogramaController extends Controller
                 'id' => $event->id,
                 'extendedProps'=> [
                     'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,
-                    'estado' => $event->estado->nombre
+                    'estado' => $event->estado->nombre,
+                    'colaborador_id' => $event->colaborador->id
                 ]
             ];
         }

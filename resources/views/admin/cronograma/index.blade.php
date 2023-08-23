@@ -156,11 +156,28 @@
                     return { domNodes: arrayOfDomNodes}
                 },
                 eventClick: function(info) {
-                    // alert('Event: ' + info.event.id);
 
-                    axios.put(`${SITEURL}/admin/cronograma/${info.event.id}`)
-                        .then(res => console.log(res.data))
-                        .catch(err => console.log(err));  
+                    axios.get(`${SITEURL}/api/colaboradores`)
+                        .then(function (res) {
+                            var col = info.event.extendedProps.colaborador_id
+
+                            $.each(res.data, function (index, colaborador) {
+                                $("#colaborador_id").append(`<option value="${colaborador.id}" ${col == colaborador.id ? 'selected' : ''}>
+                                    ${colaborador.nombres} ${colaborador.apellidos}
+                                    </option>`);
+                            });
+
+                            $('#descripcion').val(info.event.title);
+                            $('#modal-actividad').modal('show');
+                        })
+                        .catch(err => console.log(err));
+
+
+
+
+                    // axios.put(`${SITEURL}/admin/cronograma/${info.event.id}`)
+                    //     .then(res => console.log(res.data))
+                    //     .catch(err => console.log(err));  
                     
                 }
             })
@@ -168,8 +185,5 @@
             calendar.render()
         });
 
-        // function displayMessage(message) {
-        //     toastr.success(message, 'Event');
-        // }
     </script>
 @endpush
