@@ -23,6 +23,8 @@
         <div id='calendar'></div>
     </div>
 
+    @include('partials.modals.actividad')
+
 @endsection
 
 @push('scripts')
@@ -154,11 +156,11 @@
                     return { domNodes: arrayOfDomNodes}
                 },
                 eventClick: function(info) {
-                    alert('Event: ' + info.event.id);
+                    // alert('Event: ' + info.event.id);
 
-                    // axios.put(SITEURL + info.id)
-                    //     .then(res => console.log(res.data))
-                    //     .catch(err => console.log(err));  
+                    axios.put(`${SITEURL}/admin/cronograma/${info.event.id}`)
+                        .then(res => console.log(res.data))
+                        .catch(err => console.log(err));  
                     
                 }
             })
