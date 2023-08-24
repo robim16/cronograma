@@ -29,6 +29,7 @@ mix.js('resources/js/app.js', 'public/js')
 
     mix.scripts([
         'public/adminLte/plugins/jquery/jquery.min.js',
+        'public/adminLte/plugins/popper/popper.js',
         'public/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js',
         'public/adminLte/plugins/chart.js/Chart.min.js',
         'public/adminLte/plugins/sparklines/sparkline.js',

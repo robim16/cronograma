@@ -130,7 +130,7 @@
                 eventSources: [
                     {
                         url: SITEURL + "/admin/cronograma/events",
-                        // color: 'blue',
+                        color: 'blue',
                         // textColor: 'white'
                     }
                 ],
@@ -205,8 +205,13 @@
                 colaborador,
                 estado
             })
-                .then(res => console.log(res.data))
-                .catch(err => console.log(err));  
+                .then( function (res) {
+                    toastr.success('Se ha editado la actividad exitosamente.')
+                })
+                .catch( function (err) {
+                    console.log(err);
+                    toastr.error('Ha ocurrido un error al editar.');
+                });  
         }
     </script>
 @endpush

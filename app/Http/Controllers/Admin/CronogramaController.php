@@ -32,7 +32,7 @@ class CronogramaController extends Controller
                 'title' => $event->title,
                 'start' => $event->start,
                 'end' => $event->end,
-                'allDay'=> true,
+                'allDay'=> false,
                 'id' => $event->id,
                 'extendedProps'=> [
                     'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,
@@ -59,8 +59,7 @@ class CronogramaController extends Controller
 
         $actividade->save();
 
-        return $actividade;
-        // return response()->json($actividade);
+        return response()->json($actividade);
     }
 }
 
