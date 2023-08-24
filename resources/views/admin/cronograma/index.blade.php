@@ -156,6 +156,21 @@
                 },
                 eventClick: function(info) {
 
+                    Swal.fire({
+                        title: 'Desea editar o eliminar la actividad?',
+                        showDenyButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: 'Editar',
+                        denyButtonText: `Eliminar`,
+                    }).then((result) => {
+                   
+                        if (result.isConfirmed) {
+                            Swal.fire('Saved!', '', 'success')
+                        } else if (result.isDenied) {
+                            Swal.fire('Changes are not saved', '', 'info')
+                        }
+                    })
+
                     $('#descripcion').val(info.event.title);
                     $('#event_id').val(info.event.id);
 

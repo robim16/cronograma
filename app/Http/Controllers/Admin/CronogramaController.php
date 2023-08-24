@@ -50,16 +50,35 @@ class CronogramaController extends Controller
 
     public function event_update(Request $request, Actividad $actividade)
     {
+        try {
+          
+            $actividade->descripcion = $request->title;
+    
+            $actividade->colaborador_id = $request->colaborador;
+    
+            $actividade->estado_id = $request->estado;
+    
+            $actividade->save();
+    
+            return response()->json($actividade);
+            
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
+    }
 
-        $actividade->descripcion = $request->title;
 
-        $actividade->colaborador_id = $request->colaborador;
+    public function event_destroy(Request $request, Actividad $actividade)
+    {
+        try {
+          
+            $delete = $actividade->delete();
 
-        $actividade->estado_id = $request->estado;
+            return response()->json($delete);
 
-        $actividade->save();
-
-        return response()->json($actividade);
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
     }
 }
 
