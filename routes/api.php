@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActividadController;
 use App\Http\Controllers\Api\ColaboradorController;
 use App\Http\Controllers\Api\EstadoController;
 use Illuminate\Http\Request;
@@ -27,4 +28,11 @@ Route::prefix('colaboradores')->group(function () {
 
 Route::prefix('estados')->group(function () {
     Route::get('/', [EstadoController::class, 'index']);
+});
+
+
+Route::prefix('actividades')->group(function () {
+    Route::post('/', [ActividadController::class, 'store']);
+    Route::put('/{actividade}', [ActividadController::class, 'update']);
+    Route::delete('/{actividade}', [ActividadController::class, 'destroy']);
 });

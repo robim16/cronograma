@@ -38,9 +38,7 @@ Route::namespace('Admin')->group(function () {
         
         Route::prefix('cronograma')->group(function () {
             Route::get('/', [CronogramaController::class, 'index'])->name('cronograma.index');
-
             Route::get('/events', [CronogramaController::class, 'events']);
-            Route::put('/actividad/{actividade}', [CronogramaController::class, 'event_update']);
         });
     });
 });

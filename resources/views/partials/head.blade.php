@@ -16,7 +16,7 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('adminLte/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('adminLte/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
-    
+    {{-- <link href="{{ asset('adminLte/plugins/fullcalendar/main.css') }}" rel="stylesheet"> --}}
     
     @stack('styles')
   </head>
