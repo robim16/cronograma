@@ -37,7 +37,7 @@
                             <th>Fecha de fin</th>
                             <th>Colaborador</th>
                             <th>Estado</th>
-                            {{-- <th>Acciones</th> --}}
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,7 +112,9 @@
                 { data: 'fecha_inicio' },
                 { data: 'fecha_fin' },
                 { data: 'colaborador' },
-                { data: 'estado_id' }
+                { data: 'estado_id' },
+                { data: 'id' },
+
             ],
             columnDefs: [
                 {
@@ -127,6 +129,23 @@
                         return `${row.estado.nombre}` 
                     }
                 },
+                {
+                    "targets": [6],
+                    "render": function ( data, type, row ) {
+                        return `<div class="btn-group">
+                            <a href="" class="btn btn-success btn-sm mx-2">
+                                <i class="fa fa-edit"></i>
+                            </a>
+
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            
+                        </div>` 
+                    }
+                },
+
+                
             ],
             language: {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"

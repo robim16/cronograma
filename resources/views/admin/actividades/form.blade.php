@@ -2,7 +2,14 @@
     <div class="col-md-6 mx-auto">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Editar Actividades</h3>
+                <h3 class="card-title"> 
+                    @if (!$actividade)
+                        Crear
+                    @else
+                        Editar 
+                    @endif 
+                    Actividades
+                </h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -50,7 +57,7 @@
                     <select name="colaborador_id" id="colaborador_id" class="form-control">
                         <option value="">Seleccione</option>
                         @foreach ($colaboradores as $colaborador)
-                            <option value="{{$colaborador->id}}" @if ($actividade->colaborador_id == $colaborador->id)
+                            <option value="{{$colaborador->id}}" @if (@$actividade->colaborador_id == $colaborador->id)
                                 selected
                             @endif>{{ $colaborador->nombres }} {{ $colaborador->apellidos }}</option>
                         @endforeach
@@ -65,7 +72,7 @@
                     <select name="estado_id" id="estado_id" class="form-control">
                         <option value="">Seleccione</option>
                         @foreach ($estados as $estado)
-                            <option value="{{$estado->id}}" @if ($actividade->estado_id == $estado->id)
+                            <option value="{{$estado->id}}" @if (@$actividade->estado_id == $estado->id)
                                 selected
                             @endif>{{ $estado->nombre }}</option>
                         @endforeach

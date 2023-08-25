@@ -19,7 +19,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                a class="m-2 float-right btn btn-primary" href="{{ route('colaboradores.create') }}"> <i
+                <a class="m-2 float-right btn btn-primary" href="{{ route('colaboradores.create') }}"> <i
                     class="fas fa-plus"></i> Crear</a>
                 <table class="table table-hover text-nowrap">
                     <thead>

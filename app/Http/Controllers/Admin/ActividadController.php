@@ -40,7 +40,17 @@ class ActividadController extends Controller
      */
     public function create()
     {
-        //
+        $colaboradores = Colaborador::orderBy('nombres')
+            ->orderBy('apellidos')
+            ->get();
+
+
+        $actividade = '';
+        
+        $estados = Estado::orderBy('nombre')
+            ->get();
+
+        return view('admin.actividades.create', compact('actividade', 'colaboradores', 'estados'));
     }
 
     /**
