@@ -254,6 +254,11 @@
                     })
                     .catch( function (err) {
                         console.log(err);
+
+                        for (var [ el, message ] of Object.entries(err.response.data.errors )) {
+                            $(`#${el}-error`).html(message);
+                        }
+
                         toastr.error('Ha ocurrido un error al crear la actividad.');
                     });  
                 

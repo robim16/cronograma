@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActividadRequest;
 use App\Models\Actividad;
 use Illuminate\Http\Request;
 
@@ -34,10 +35,12 @@ class ActividadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActividadRequest $request)
     {
         try {
            
+            $data = $request->validated();
+            
             $actividad = new Actividad();
     
             $actividad->descripcion = $request->title;
