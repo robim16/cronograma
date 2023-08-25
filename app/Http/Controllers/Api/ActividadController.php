@@ -16,7 +16,10 @@ class ActividadController extends Controller
      */
     public function index()
     {
-        //
+        $actividades = Actividad::orderBy('fecha_inicio')
+            ->get();
+
+        return response()->json($actividades);
     }
 
     /**

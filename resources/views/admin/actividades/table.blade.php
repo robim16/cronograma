@@ -14,13 +14,16 @@
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
+
+                        <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
+                            class="fas fa-plus"></i> Crear</a>
                     </div>
                 </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
-                    class="fas fa-plus"></i> Crear</a>
+                {{-- <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
+                    class="fas fa-plus"></i> Crear</a> --}}
                 <table id="tabla-actividades" class="table table-hover text-nowrap">
                     <thead>
                         <tr>
@@ -30,11 +33,11 @@
                             <th>Fecha de fin</th>
                             <th>Colaborador</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            {{-- <th>Acciones</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($actividades as $actividad)
+                        {{-- @foreach ($actividades as $actividad)
                             
                             <tr>
                                 <td>{{ $actividad->id }}</td>
@@ -61,7 +64,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                        
+                         --}}
                     </tbody>
                 </table>
             </div>
@@ -74,27 +77,55 @@
 
 @push('scripts')
 <script>
-    $('#tabla-actividades').DataTable({
-        "scrollX": true,
-        "dom": 'Bfrtip',
-        "buttons": [
-            'excel', 'pdf', 'print'
-        ],
-        "fnInitComplete": function(){
-            // Enable THEAD scroll bars
-            $('.dataTables_scrollHead').css('overflow', 'auto');
+    // $('#tabla-actividades').DataTable({
+    //     "scrollX": true,
+    //     "dom": 'Bfrtip',
+    //     "buttons": [
+    //         'excel', 'pdf', 'print'
+    //     ],
+    //     "fnInitComplete": function(){
+    //         // Enable THEAD scroll bars
+    //         $('.dataTables_scrollHead').css('overflow', 'auto');
 
-            // Sync THEAD scrolling with TBODY
-            $('.dataTables_scrollHead').on('scroll', function () {
-                $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            });                    
-        },
-        "order": [
-            [0, "desc"]
-        ],
-        "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
-        }
-    });
+    //         // Sync THEAD scrolling with TBODY
+    //         $('.dataTables_scrollHead').on('scroll', function () {
+    //             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+    //         });                    
+    //     },
+    //     "order": [
+    //         [0, "desc"]
+    //     ],
+    //     "language": {
+    //         "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
+    //     }
+    // });
+
+    // $(document).ready(function () {
+
+        var SITEURL = "{{ url('/') }}";
+
+        $('#tabla-actividades').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ],
+            pageLength: 10,
+			lengthMenu: [ 5, 10, 15, 20, 30, 40, 25, 50, 75, 100 ],
+            processing: true,
+            serverSide: false,
+            ajax: `${SITEURL}/api/actividades`,
+            columns: [
+                { data: 'id' },
+                { data: 'descripcion' },
+                { data: 'fecha_inicio' },
+                { data: 'fecha_fin' },
+                { data: 'colaborador_id' },
+                { data: 'estado_id' }
+            ],
+            language: {
+                "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
+            }
+        });
+    // });
 </script>
 @endpush

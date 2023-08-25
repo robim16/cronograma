@@ -32,6 +32,7 @@ Route::prefix('estados')->group(function () {
 
 
 Route::prefix('actividades')->group(function () {
+    Route::get('/', [ActividadController::class, 'index']);
     Route::post('/', [ActividadController::class, 'store']);
     Route::put('/{actividade}', [ActividadController::class, 'update']);
     Route::delete('/{actividade}', [ActividadController::class, 'destroy']);
