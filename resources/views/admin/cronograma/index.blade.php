@@ -37,76 +37,12 @@
         $(document).ready(function() {
 
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            // var calendar = $('#calendar').fullCalendar({
-            //     editable: true,
-            //     events: SITEURL + "/admin/cronograma",
-            //     displayEventTime: false,
-            //     editable: true,
-            //     eventRender: function(event, element, view) {
-            //         if (event.allDay === 'true') {
-            //             event.allDay = true;
-            //         } else {
-            //             event.allDay = false;
-            //         }
-            //     },
-            //     selectable: true,
-            //     selectHelper: true,
-            //     select: function(start, end, allDay) {
-            //         var title = prompt('Event Title:');
-            //         if (title) {
-            //             var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-            //             var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-            //             $.ajax({
-            //                 url: SITEURL + "/admin/cronograma",
-            //                 data: {
-            //                     title: title,
-            //                     start: start,
-            //                     end: end,
-            //                     type: 'add'
-            //                 },
-            //                 type: "POST",
-            //                 success: function(data) {
-            //                     displayMessage("Event Created Successfully");
-
-            //                     calendar.fullCalendar('renderEvent', {
-            //                         id: data.id,
-            //                         title: title,
-            //                         start: start,
-            //                         end: end,
-            //                         allDay: allDay
-            //                     }, true);
-
-            //                     calendar.fullCalendar('unselect');
-            //                 }
-            //             });
-            //         }
-            //     },
-            //     eventDrop: function(event, delta) {
-            //         var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-            //         var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-
-            //         $.ajax({
-            //             url: SITEURL + '/fullcalenderAjax',
-            //             data: {
-            //                 title: event.title,
-            //                 start: start,
-            //                 end: end,
-            //                 id: event.id,
-            //                 type: 'update'
-            //             },
-            //             type: "POST",
-            //             success: function(response) {
-            //                 displayMessage("Event Updated Successfully");
-            //             }
-            //         });
-            //     },
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
             // });
+
 
             var calendarEl = document.getElementById('calendar')
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -170,22 +106,51 @@
                         })
                         .catch(err => console.log(err));
                             
-                    
-                    // calendar.fullCalendar('renderEvent', {
-                    //     id: data.id,
-                    //     title: title,
-                    //     start: start,
-                    //     end: end,
-                    //     allDay: allDay
-                    // }, true);
-
-                    // calendar.fullCalendar('unselect');
 
                     calendar.unselect();
 
                     $('.modal-title').html('Crear actividad');
                     $('#modal-actividad').modal('show');
                     
+                },
+                eventDrop: function(info) {
+                    alert(info.event.title + " ha sido reprogramado a la fecha " + info.event.startStr);
+
+                    Swal.fire({
+                        title: 'Desea confirmar este cambio?',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Aceptar',
+                        denyButtonText: `Cancelar`,
+                    }).then((result) => {
+                        
+                        if (result.isConfirmed) {
+
+                            let id = info.event.id;
+
+                            axios.put(`${SITEURL}/api/actividades/${id}`, {
+                                title: info.event.title,
+                                colaborador: info.event.extendedProps.colaborador_id,
+                                estado: info.event.extendedProps.estado_id,
+                                start: info.event.startStr,
+                                end: info.event.endStr
+                            })
+                                .then( function (res) {
+                                
+                                    console.log(res);
+                                    toastr.success('Se ha reprogramado la actividad exitosamente.')
+                                })
+                                .catch( function (err) {
+                                    console.log(err);
+                                    toastr.error('Ha ocurrido un error al reprogramar.');
+                                });  
+
+                        } else if (result.isDenied) {
+                            info.revert();
+                            
+                        }
+                    })
+
                 },
                 eventClick: function(info) {
 
@@ -306,6 +271,11 @@
                 })
                     .then( function (res) {
                         toastr.success('Se ha editado la actividad exitosamente.')
+
+                        if (typeof calendar !== 'undefined') {
+                            calendar.refetchEvents();
+                        }
+
                         $('#modal-actividad').modal('hide');
                     })
                     .catch( function (err) {
