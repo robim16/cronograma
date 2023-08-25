@@ -16,7 +16,8 @@ class ActividadController extends Controller
      */
     public function index()
     {
-        $actividades = Actividad::orderBy('fecha_inicio')
+        $actividades = Actividad::with(['colaborador', 'estado'])
+            ->orderBy('fecha_inicio')
             ->get();
 
         return response()->json($actividades);
@@ -43,7 +44,7 @@ class ActividadController extends Controller
         try {
            
             $data = $request->validated();
-            
+
             $actividad = new Actividad();
     
             $actividad->descripcion = $request->title;
