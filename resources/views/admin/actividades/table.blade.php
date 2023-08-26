@@ -133,11 +133,11 @@
                     "targets": [6],
                     "render": function ( data, type, row ) {
                         return `<div class="btn-group">
-                            <a href="" class="btn btn-success btn-sm mx-2">
+                            <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
                                 <i class="fa fa-edit"></i>
-                            </a>
+                            </button>
 
-                            <button type="submit" class="btn btn-danger btn-sm">
+                            <button class="btn btn-danger btn-sm" onclick="event_delete(${data})">
                                 <i class="fa fa-trash"></i>
                             </button>
                             
@@ -151,6 +151,24 @@
                 "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
             }
         });
+
+
+        function event_edit(id) {
+            window.location.href = `${SITEURL}/admin/actividades/${id}/edit`;
+        }
+
+
+        function event_delete(id) {
+            axios.delete(`${SITEURL}/admin/actividades/${id}`)
+                .then( function (res) {
+                    toastr.success('Se ha eliminado la actividad exitosamente.')
+                })
+                .catch( function (err) {
+                    console.log(err);
+
+                    toastr.error('Ha ocurrido un error al eliminar la actividad.');
+                });  
+        }
         
     </script>
 @endpush

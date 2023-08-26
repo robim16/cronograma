@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="card-body">
-            Start creating your amazing application!
+            <img src="{{ asset('alcaldia.jpeg') }}" alt="logo alcaldía"> 
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
