@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+    Crónograma de actividades
+@endsection
+
 @section('titulo', 'Cronograma')
 
 @section('breadcrumb')

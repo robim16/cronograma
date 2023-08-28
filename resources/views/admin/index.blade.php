@@ -1,6 +1,10 @@
 
 @extends('layouts.admin')
 
+@section('title')
+    Alcaldía de Montería | Oficina TIC
+@endsection
+
 @section('content')
     <!-- Default box -->
     <div class="card">

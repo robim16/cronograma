@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+    Actividades programadas
+@endsection
+
 @section('titulo', 'Actividades')
 
 @section('breadcrumb')

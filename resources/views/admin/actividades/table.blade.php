@@ -92,6 +92,7 @@
         var SITEURL = "{{ url('/') }}";
 
         $('#tabla-actividades').DataTable({
+            order: [[2, 'desc']],
             dom: 'Bfrtip',
             buttons: [
                 'excelHtml5',

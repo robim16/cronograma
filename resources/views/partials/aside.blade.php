@@ -6,7 +6,7 @@
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a> --}}
 
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('admin')}}" class="brand-link">
         <img src="{{ asset('logo-tic-png.png') }}" alt="Logo Tic"
             class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Oficina Tic</span>
@@ -22,10 +22,10 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
-                <a class="dropdown-item" href="{{ route('logout') }}"
+                <a class="dropdown-item" href="{{ route('logout') }}" title="salir"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i class="fas fa-sign-out-alt text-primary"></i>
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -56,11 +56,11 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="fa fa-list-ul"></i>
+                        <i class="nav-icon fas fa-tasks"></i>
                         <p>
                             Actividades
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
+                            {{-- <span class="badge badge-info right">6</span> --}}
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -81,11 +81,11 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-calendar-day"></i>
                         <p>
                             Cronograma
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
+                            {{-- <span class="badge badge-info right">6</span> --}}
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -106,11 +106,11 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Colaboradores
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
+                            {{-- <span class="badge badge-info right">6</span> --}}
                         </p>
                     </a>
                     <ul class="nav nav-treeview">

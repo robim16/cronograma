@@ -104,11 +104,9 @@ class ActividadController extends Controller
           
             $actividade->descripcion = $request->descripcion;
 
-            // if (($request->start != '') && ($request->end != '')) {
-
-                $actividade->fecha_inicio = date('Y-m-d', strtotime($request->fecha_inicio));
-                $actividade->fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
-            // }
+            $actividade->fecha_inicio = date('Y-m-d', strtotime($request->fecha_inicio));
+            
+            $actividade->fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
     
             $actividade->colaborador_id = $request->colaborador_id;
     

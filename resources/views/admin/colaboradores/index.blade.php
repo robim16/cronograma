@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+
+@section('title')
+    Colaboradores
+@endsection
+
 @section('titulo', 'Colaboradores')
 
 @section('breadcrumb')
