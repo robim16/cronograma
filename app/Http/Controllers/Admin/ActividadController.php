@@ -118,8 +118,19 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Actividad $actividade)
     {
-        //
+        try {
+          
+            $delete = $actividade->delete();
+
+            session()->flash('message', ['success', ("Se ha eliminado la actividad")]);
+            return redirect()->route('actividades.index');
+
+
+        } catch (\Exception $e) {
+            session()->flash('message', ['warning', ("Ha ocurrido un error al eliminar la actividad")]);
+            return redirect()->route('actividades.index');
+        }
     }
 }

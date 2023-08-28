@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ActividadRequest;
+use App\Http\Requests\Api\ActividadRequest;
 use App\Models\Actividad;
 use Illuminate\Http\Request;
 
@@ -45,19 +45,22 @@ class ActividadController extends Controller
            
             $data = $request->validated();
 
-            $actividad = new Actividad();
+            // $actividad = new Actividad();
     
-            $actividad->descripcion = $request->title;
+            // $actividad->descripcion = $request->title;
     
-            $actividad->fecha_inicio = $request->start;
+            // $actividad->fecha_inicio = $request->start;
     
-            $actividad->fecha_fin = $request->end;
+            // $actividad->fecha_fin = $request->end;
     
-            $actividad->colaborador_id = $request->colaborador;
+            // $actividad->colaborador_id = $request->colaborador;
     
-            $actividad->estado_id = $request->estado;
+            // $actividad->estado_id = $request->estado;
     
-            $actividad->save();
+            // $actividad->save();
+
+            $actividad = Actividad::create($request->all());
+
 
             return $actividad;
 
@@ -95,21 +98,21 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Actividad $actividade)
+    public function update(ActividadRequest $request, Actividad $actividade)
     {
         try {
           
-            $actividade->descripcion = $request->title;
+            $actividade->descripcion = $request->descripcion;
 
-            if (($request->start != '') && ($request->end != '')) {
+            // if (($request->start != '') && ($request->end != '')) {
 
-                $actividade->fecha_inicio = date('Y-m-d', strtotime($request->start));
-                $actividade->fecha_fin = date('Y-m-d', strtotime($request->end));
-            }
+                $actividade->fecha_inicio = date('Y-m-d', strtotime($request->fecha_inicio));
+                $actividade->fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
+            // }
     
-            $actividade->colaborador_id = $request->colaborador;
+            $actividade->colaborador_id = $request->colaborador_id;
     
-            $actividade->estado_id = $request->estado;
+            $actividade->estado_id = $request->estado_id;
     
             $actividade->save();
     

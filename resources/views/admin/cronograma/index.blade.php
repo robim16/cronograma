@@ -36,14 +36,6 @@
 
         $(document).ready(function() {
 
-
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
-
-
             var calendarEl = document.getElementById('calendar')
             calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -51,7 +43,7 @@
                 eventSources: [
                     {
                         url: SITEURL + "/admin/cronograma/events",
-                        color: 'blue',
+                        // color: 'blue',
                         // textColor: 'white'
                     }
                 ],
@@ -80,9 +72,24 @@
                     start = info.startStr;
                     end = info.endStr;
 
+                    
+                    $('#descripcion').val('');
+                    $('#estado_id').val('');
+                    $('#colaborador_id').val('');
+                    $('#event_id').val('');
+
+                    $('#colaborador_id').html('');
+                    $('#estado_id').html('');
+
+                    $('#fecha_inicio').val(start);
+                    $('#fecha_fin').val(end);
+
 
                     axios.get(`${SITEURL}/api/colaboradores`)
                         .then(function (res) {
+
+                            $("#colaborador_id").append(`<option value="">
+                                Seleccione </option>`);
 
                             $.each(res.data, function (index, colaborador) {
                                 $("#colaborador_id").append(`<option value="${colaborador.id}">
@@ -98,6 +105,9 @@
                     axios.get(`${SITEURL}/api/estados`)
                         .then(function (res) {
 
+                            $("#estado_id").append(`<option value="">
+                                Seleccione </option>`);
+
                             $.each(res.data, function (index, estado) {
                                 $("#estado_id").append(`<option value="${estado.id}">
                                     ${estado.nombre}</option>`);
@@ -110,6 +120,7 @@
                     calendar.unselect();
 
                     $('.modal-title').html('Crear actividad');
+
                     $('#modal-actividad').modal('show');
                     
                 },
@@ -129,11 +140,11 @@
                             let id = info.event.id;
 
                             axios.put(`${SITEURL}/api/actividades/${id}`, {
-                                title: info.event.title,
-                                colaborador: info.event.extendedProps.colaborador_id,
-                                estado: info.event.extendedProps.estado_id,
-                                start: info.event.startStr,
-                                end: info.event.endStr
+                                descripcion: info.event.title,
+                                colaborador_id: info.event.extendedProps.colaborador_id,
+                                estado_id: info.event.extendedProps.estado_id,
+                                fecha_inicio: info.event.startStr,
+                                fecha_fin: info.event.endStr
                             })
                                 .then( function (res) {
                                 
@@ -166,10 +177,24 @@
                             
                             $('#descripcion').val(info.event.title);
                             $('#event_id').val(info.event.id);
+
+                            $('#estado_id').val('');
+                            $('#colaborador_id').val('');
+
+                            $('#colaborador_id').html('');
+                            $('#estado_id').html('');
+
+                            $('#fecha_inicio').val(info.event.startStr);
+                            $('#fecha_fin').val(info.event.endStr);
+
+                            console.log(info.event.endStr)
         
                             axios.get(`${SITEURL}/api/colaboradores`)
                                 .then(function (res) {
-                                    var col = info.event.extendedProps.colaborador_id
+                                    var col = info.event.extendedProps.colaborador_id;
+
+                                    $("#colaborador_id").append(`<option value="">
+                                        Seleccione </option>`);
         
                                     $.each(res.data, function (index, colaborador) {
                                         $("#colaborador_id").append(`<option value="${colaborador.id}" ${col == colaborador.id ? 'selected' : ''}>
@@ -184,7 +209,10 @@
         
                             axios.get(`${SITEURL}/api/estados`)
                                 .then(function (res) {
-                                    var est = info.event.extendedProps.estado_id
+                                    var est = info.event.extendedProps.estado_id;
+
+                                    $("#estado_id").append(`<option value="">
+                                        Seleccione </option>`);
         
                                     $.each(res.data, function (index, estado) {
                                         $("#estado_id").append(`<option value="${estado.id}" ${est == estado.id ? 'selected' : ''}>
@@ -231,18 +259,23 @@
 
         function event_save() {
 
-            if (start != '' && end != '') {
+            let event_id = $('#event_id').val();
 
-                let title = $('#descripcion').val();
-                let colaborador = $('#colaborador_id').val();
-                let estado = $('#estado_id').val();
+            if ((start != '' && end != '') && event_id == '') {
+
+                let descripcion = $('#descripcion').val();
+                let colaborador_id = $('#colaborador_id').val();
+                let estado_id = $('#estado_id').val();
+                let fecha_inicio = $('#fecha_inicio').val();
+                let fecha_fin = $('#fecha_fin').val();
+
     
                 axios.post(`${SITEURL}/api/actividades`, {
-                    title,
-                    colaborador,
-                    estado,
-                    start,
-                    end
+                    descripcion,
+                    colaborador_id,
+                    estado_id,
+                    fecha_inicio,
+                    fecha_fin
                 })
                     .then( function (res) {
                         toastr.success('Se ha creado la actividad exitosamente.')
@@ -265,14 +298,18 @@
             } else {
                 
                 let id = $('#event_id').val();
-                let title = $('#descripcion').val();
-                let colaborador = $('#colaborador_id').val();
-                let estado = $('#estado_id').val();
+                let descripcion = $('#descripcion').val();
+                let colaborador_id = $('#colaborador_id').val();
+                let estado_id = $('#estado_id').val();
+                let fecha_inicio = $('#fecha_inicio').val();
+                let fecha_fin = $('#fecha_fin').val();
     
                 axios.put(`${SITEURL}/api/actividades/${id}`, {
-                    title,
-                    colaborador,
-                    estado
+                    descripcion,
+                    colaborador_id,
+                    estado_id,
+                    fecha_inicio,
+                    fecha_fin
                 })
                     .then( function (res) {
                         toastr.success('Se ha editado la actividad exitosamente.')

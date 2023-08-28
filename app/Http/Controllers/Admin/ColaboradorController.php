@@ -90,8 +90,19 @@ class ColaboradorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Colaborador $colaboradore)
     {
-        //
+        try {
+          
+            $delete = $colaboradore->delete();
+
+            session()->flash('message', ['success', ("Se ha eliminado el colaborador")]);
+            return redirect()->route('colaboradores.index');
+
+
+        } catch (\Exception $e) {
+            session()->flash('message', ['warning', ("Ha ocurrido un error al eliminar el colaborador")]);
+            return redirect()->route('colaboradores.index');
+        }
     }
 }

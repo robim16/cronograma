@@ -41,7 +41,7 @@ class ColaboradorRequest extends FormRequest
 
             case 'PUT':
                 $rules = [
-                    'identificacion' => 'required|unique:colaboradores,identificacion,{$this->colaborador->id}',
+                    'identificacion' => "required|unique:colaboradores,identificacion,{$this->colaboradore->id}",
                     'nombres' => 'required',
                     'apellidos' => 'required',
                     'direccion' => 'required',

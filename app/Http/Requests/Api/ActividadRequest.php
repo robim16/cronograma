@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class ActividadRequest extends FormRequest
 {
@@ -32,7 +32,7 @@ class ActividadRequest extends FormRequest
                 $rules = [
                     'descripcion' => 'required',
                     'fecha_inicio' => 'required',
-                    'fecha_fin' => 'required',
+                    'fecha_inicio' => 'required',
                     'colaborador_id' => 'required',
                     'estado_id' => 'required'
                 ];
@@ -42,7 +42,7 @@ class ActividadRequest extends FormRequest
                 $rules = [
                     'descripcion' => 'required',
                     'fecha_inicio' => 'sometimes',
-                    'fecha_fin' => 'sometimes',
+                    'fecha_inicio' => 'sometimes',
                     'colaborador_id' => 'required',
                     'estado_id' => 'required'
                 ];

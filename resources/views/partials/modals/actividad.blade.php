@@ -22,6 +22,21 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="fecha_inicio">Fecha de inicio</label>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control"
+                            value="">
+                        <small class="form-text error-message" id="fecha_inicio-error"></small>
+                       
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_fin">Fecha de fin</label>
+                        <input type="date" id="fecha_fin" name="fecha_fin" class="form-control"
+                            value="">
+                        <small class="form-text error-message" id="fecha_fin-error"></small>
+                        
+                    </div>
+
+                    <div class="form-group">
                         <label for="colaborador_id">Colaborador</label>
                         <select name="colaborador_id" id="colaborador_id" class="form-control">
                             <option value="">Seleccione</option>
