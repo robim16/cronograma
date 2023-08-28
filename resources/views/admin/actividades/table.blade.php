@@ -1,5 +1,13 @@
 
 @push('styles')
+    <style>
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+
    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 @endpush
@@ -13,14 +21,6 @@
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        {{-- <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div> --}}
-
                         <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
                             class="fas fa-plus"></i> Crear</a>
                     </div>
@@ -70,6 +70,17 @@
                         @endforeach
                          --}}
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Descripción</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de fin</th>
+                            <th>Colaborador</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -150,6 +161,26 @@
             ],
             language: {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"
+            },
+            initComplete: function () {
+                this.api()
+                    .columns()
+                    .every(function () {
+                        let column = this;
+                        let title = column.footer().textContent;
+        
+                        // Create input element
+                        let input = document.createElement('input');
+                        input.placeholder = title;
+                        column.footer().replaceChildren(input);
+        
+                        // Event listener for user input
+                        input.addEventListener('keyup', () => {
+                            if (column.search() !== this.value) {
+                                column.search(input.value).draw();
+                            }
+                        });
+                    });
             }
         });
 
