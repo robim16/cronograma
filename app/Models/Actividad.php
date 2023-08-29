@@ -15,7 +15,8 @@ class Actividad extends Model
         'fecha_inicio',
         'fecha_fin',
         'colaborador_id',
-        'estado_id'
+        'estado_id',
+        'color'
     ];
 
     public function colaborador()

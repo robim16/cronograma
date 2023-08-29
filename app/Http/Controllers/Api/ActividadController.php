@@ -45,19 +45,6 @@ class ActividadController extends Controller
            
             $data = $request->validated();
 
-            // $actividad = new Actividad();
-    
-            // $actividad->descripcion = $request->title;
-    
-            // $actividad->fecha_inicio = $request->start;
-    
-            // $actividad->fecha_fin = $request->end;
-    
-            // $actividad->colaborador_id = $request->colaborador;
-    
-            // $actividad->estado_id = $request->estado;
-    
-            // $actividad->save();
 
             $actividad = Actividad::create($request->all());
 
@@ -111,6 +98,8 @@ class ActividadController extends Controller
             $actividade->colaborador_id = $request->colaborador_id;
     
             $actividade->estado_id = $request->estado_id;
+
+            $actividade->color = $request->color;
     
             $actividade->save();
     

@@ -50,6 +50,11 @@
                         </select>
                         <small class="form-text error-message" id="estado_id-error"></small>
                     </div>
+                    <div class="form-group">
+                        <label for="color">Color</label>
+                        <input type="color" name="color" id="color" class="form-control">
+                        <small class="form-text error-message" id="color-error"></small>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">

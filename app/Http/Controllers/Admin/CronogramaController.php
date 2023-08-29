@@ -18,7 +18,7 @@ class CronogramaController extends Controller
     {
         
         $actividades = Actividad::select('id', 'descripcion as title', 'fecha_inicio as start',
-            'fecha_fin as end', 'colaborador_id', 'estado_id')
+            'fecha_fin as end', 'colaborador_id', 'estado_id', 'color')
             ->whereDate('fecha_inicio', '>=', $request->start)
             ->whereDate('fecha_fin', '<=', $request->end)
             ->with(['colaborador', 'estado'])
@@ -33,6 +33,7 @@ class CronogramaController extends Controller
                 'start' => $event->start,
                 'end' => $event->end,
                 'allDay'=> true,
+                'color'=> $event->color,
                 'id' => $event->id,
                 'extendedProps'=> [
                     'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,

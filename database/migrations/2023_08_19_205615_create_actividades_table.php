@@ -18,6 +18,7 @@ class CreateActividadesTable extends Migration
             $table->string('descripcion');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
+            $table->string('color')->nullable();
             $table->unsignedBigInteger('colaborador_id');
             $table->foreign('colaborador_id')->references('id')->on('colaboradores');
             $table->unsignedBigInteger('estado_id');
