@@ -27,7 +27,7 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.roles.create');
     }
 
     /**
@@ -38,7 +38,10 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rol = Role::create($request->all());
+
+        session()->flash('message', ['success', ("Se ha creado el rol")]);
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -58,9 +61,9 @@ class RolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        return view('admin.roles.edit', compact('role'));
     }
 
     /**
@@ -70,9 +73,12 @@ class RolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $rol = $role->update($request->all());
+
+        session()->flash('message', ['success', ("Se ha actualizado el rol")]);
+        return redirect()->route('roles.index');
     }
 
     /**

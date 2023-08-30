@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ActividadController;
 use App\Http\Controllers\Api\ColaboradorController;
 use App\Http\Controllers\Api\EstadoController;
+use App\Http\Controllers\Api\RolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,9 @@ Route::prefix('estados')->group(function () {
     Route::get('/', [EstadoController::class, 'index']);
 });
 
+Route::prefix('roles')->group(function () {
+    Route::get('/', [RolController::class, 'index']);
+});
 
 Route::prefix('actividades')->group(function () {
     Route::get('/', [ActividadController::class, 'index']);
