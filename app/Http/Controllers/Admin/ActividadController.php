@@ -28,9 +28,9 @@ class ActividadController extends Controller
      */
     public function index()
     {
-        $actividades = Actividad::with(['colaborador', 'estado'])->get();
+        // $actividades = Actividad::with(['colaborador', 'estado'])->get();
 
-        return view('admin.actividades.index', compact('actividades'));
+        return view('admin.actividades.index');
     }
 
     /**

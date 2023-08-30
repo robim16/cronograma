@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ActividadRequest;
 use App\Models\Actividad;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller
@@ -16,7 +17,16 @@ class ActividadController extends Controller
      */
     public function index()
     {
-        $actividades = Actividad::with(['colaborador', 'estado'])
+
+        $user = auth()->user();
+
+        $rol = $user->rol;
+
+
+        $actividades = Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
+            return $query->where('colaborador_id', $user->colaborador->id);
+        })
+            ->with(['colaborador', 'estado'])
             ->orderBy('fecha_inicio')
             ->get();
 

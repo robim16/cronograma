@@ -35,7 +35,9 @@ class ColaboradorRequest extends FormRequest
                     'apellidos' => 'required',
                     'direccion' => 'required',
                     'telefono' => 'required',
-                    'email' => 'required'
+                    'email' => 'required',
+                    'rol_id' => 'required',
+                    'password' => 'required',
                 ];
                 break;
 
@@ -46,7 +48,9 @@ class ColaboradorRequest extends FormRequest
                     'apellidos' => 'required',
                     'direccion' => 'required',
                     'telefono' => 'required',
-                    'email' => 'required'
+                    'email' => 'required',
+                    'rol_id' => 'required',
+                    'password' => 'required',
                 ];
                 break;
             case 'PATCH':

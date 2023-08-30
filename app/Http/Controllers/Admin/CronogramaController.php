@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Actividad;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class CronogramaController extends Controller
@@ -16,9 +17,15 @@ class CronogramaController extends Controller
 
     public function events(Request $request)
     {
-        
+        $user = auth()->user();
+
+        $rol = $user->rol;
+
         $actividades = Actividad::select('id', 'descripcion as title', 'fecha_inicio as start',
             'fecha_fin as end', 'colaborador_id', 'estado_id', 'color')
+            ->when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
+                return $query->where('colaborador_id', $user->colaborador->id);
+            })
             ->whereDate('fecha_inicio', '>=', $request->start)
             ->whereDate('fecha_fin', '<=', $request->end)
             ->with(['colaborador', 'estado'])
