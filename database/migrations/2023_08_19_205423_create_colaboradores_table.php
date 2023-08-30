@@ -21,6 +21,8 @@ class CreateColaboradoresTable extends Migration
             $table->string('direccion');
             $table->string('telefono');
             $table->string('email')->unique();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

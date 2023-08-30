@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\ActividadController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ColaboradorController;
 use App\Http\Controllers\Admin\CronogramaController;
+use App\Http\Controllers\Admin\RolController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +28,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::group(['prefix' => "/admin", "middleware" => [sprintf("role:%s", \App\Models\Role::ADMINISTRADOR)]], function () {
+    Route::resource('colaboradores', ColaboradorController::class);
+    Route::resource('roles', RolController::class);
+});
+
+
+
 Route::prefix('admin')->group(function () {
     Route::resource('actividades', ActividadController::class);
-    Route::resource('colaboradores', ColaboradorController::class);
 });
 
 Route::namespace('Admin')->group(function () {

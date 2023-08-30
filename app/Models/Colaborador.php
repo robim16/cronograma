@@ -16,6 +16,7 @@ class Colaborador extends Model
         'apellidos',
         'direccion',
         'telefono',
-        'email'
+        'email',
+        'user_id'
     ];
 }
