@@ -19,4 +19,8 @@ class Colaborador extends Model
         'email',
         'user_id'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

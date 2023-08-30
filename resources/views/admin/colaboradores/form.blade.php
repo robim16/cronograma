@@ -75,6 +75,30 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="rol_id">Rol</label>
+                    <select name="rol_id" id="rol_id" class="form-control">
+                        <option value="">Seleccione</option>
+                        @foreach ($roles as $rol)
+                            <option value="{{$rol->id}}" @if (@$colaboradore->user->role_id == $rol->id)
+                                selected
+                            @endif>{{ $rol->nombre }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('rol_id'))
+                        <span class="text-danger">{{ $errors->first('rol_id') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                        value="{{ old('password') ?? @$colaboradore->user->password }}">
+                    @if ($errors->has('password'))
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group">
                     <button type="reset" class="btn btn-secondary">
                         {{ 'Cancelar' }}
                         <i class="fa fa-cancel"></i>

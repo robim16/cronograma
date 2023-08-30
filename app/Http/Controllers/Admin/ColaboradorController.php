@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ColaboradorRequest;
 use App\Models\Colaborador;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ColaboradorController extends Controller
 {
@@ -30,7 +34,10 @@ class ColaboradorController extends Controller
      */
     public function create()
     {
-        return view('admin.colaboradores.create');
+        $roles = Role::orderBy('nombre')
+            ->get();
+            
+        return view('admin.colaboradores.create', compact('roles'));
     }
 
     /**
@@ -41,10 +48,37 @@ class ColaboradorController extends Controller
      */
     public function store(ColaboradorRequest $request)
     {
-        $colaborador = Colaborador::create($request->all());
+        try {
+            
+            DB::beginTransaction();
 
-        session()->flash('message', ['success', ("Se ha creado el colaborador")]);
-        return redirect()->route('colaboradores.index');
+
+            $user = new User();
+
+            $user->name = $request->nombres;
+
+            $user->email = $request->email;
+
+            $user->role_id = $request->rol_id;
+
+            $user->password = Hash::make($request->password);
+
+            $user->save();
+
+
+            $colaborador = Colaborador::create($request->except(['rol_id', 'password']));
+    
+            DB::commit();
+
+            session()->flash('message', ['success', ("Se ha creado el colaborador")]);
+            return redirect()->route('colaboradores.index');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            session()->flash('message', ['warning', ("Ha ocurrido un error al crear el colaborador")]);
+            return redirect()->back();
+        }
     }
 
     /**
@@ -66,7 +100,12 @@ class ColaboradorController extends Controller
      */
     public function edit(Colaborador $colaboradore)
     {
-        return view('admin.colaboradores.edit', compact('colaboradore'));
+        $roles = Role::orderBy('nombre')
+            ->get();
+
+        $colaboradore->load('user');
+
+        return view('admin.colaboradores.edit', compact('colaboradore', 'roles'));
     }
 
     /**
@@ -78,10 +117,40 @@ class ColaboradorController extends Controller
      */
     public function update(ColaboradorRequest $request, Colaborador $colaboradore)
     {
-        $colaborador = $colaboradore->update($request->all());
 
-        session()->flash('message', ['success', ("Se ha actualizado el colaborador")]);
-        return redirect()->route('colaboradores.index');
+        try {
+           
+            DB::beginTransaction();
+
+            $user = User::where('id', $colaboradore->user_id)->first();
+
+            $user->name = $request->nombres;
+
+            $user->email = $request->email;
+
+            $user->role_id = $request->rol_id;
+
+            if ($request->password != $user->password) {
+                $user->password = Hash::make($request->password);
+            }
+
+            
+            $user->save();
+
+
+            $colaborador = $colaboradore->update($request->except(['rol_id', 'password']));
+
+            DB::commit();
+    
+            session()->flash('message', ['success', ("Se ha actualizado el colaborador")]);
+            return redirect()->route('colaboradores.index');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            session()->flash('message', ['warning', ("Ha ocurrido un error al edit el colaborador")]);
+            return redirect()->back();
+        }
     }
 
     /**

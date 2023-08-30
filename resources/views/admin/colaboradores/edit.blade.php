@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @include('admin.colaboradores.form');
+    @include('admin.colaboradores.form')
 @endsection
