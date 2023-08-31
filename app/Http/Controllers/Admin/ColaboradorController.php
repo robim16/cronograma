@@ -65,6 +65,10 @@ class ColaboradorController extends Controller
 
             $user->save();
 
+            $request->merge([
+                'user_id' => $user->id,
+            ]);
+
 
             $colaborador = Colaborador::create($request->except(['rol_id', 'password']));
     
@@ -75,6 +79,8 @@ class ColaboradorController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+
+            // return $e;
 
             session()->flash('message', ['warning', ("Ha ocurrido un error al crear el colaborador")]);
             return redirect()->back();
