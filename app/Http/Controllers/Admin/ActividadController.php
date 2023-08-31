@@ -7,6 +7,7 @@ use App\Http\Requests\ActividadRequest;
 use App\Models\Actividad;
 use App\Models\Colaborador;
 use App\Models\Estado;
+use App\Notifications\ActividadAsignada;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller
@@ -61,10 +62,31 @@ class ActividadController extends Controller
      */
     public function store(ActividadRequest $request)
     {
-        $actividad = Actividad::create($request->all());
+        try {
+           
+            $actividad = Actividad::create($request->all());
 
-        session()->flash('message', ['success', ("Se ha creado la actividad")]);
-        return redirect()->route('actividades.index');
+            $colaborador = Colaborador::where('id', $request->colaborador_id)->first();
+
+            $msg = 'Usted tiene una nueva actividad asignada';
+
+            $data = [
+                'actividad' => [
+                    'msj' => $msg,
+                    'colaborador' => $colaborador->nombres.' '.$colaborador->apellidos,
+                    'actividad' => $actividad,
+                    'url' => url('/admin/actividad/'.$actividad->id)
+                ]
+            ];
+
+            $colaborador->notify(new ActividadAsignada($data));
+    
+            session()->flash('message', ['success', ("Se ha creado la actividad")]);
+            return redirect()->route('actividades.index');
+
+        } catch (\Exception $e) {
+            //throw $th;
+        }
     }
 
     /**
