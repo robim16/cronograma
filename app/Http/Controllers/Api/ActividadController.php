@@ -68,7 +68,8 @@ class ActividadController extends Controller
                 'actividad' => [
                     'msj' => $msg,
                     'colaborador' => $colaborador->nombres.' '.$colaborador->apellidos,
-                    'actividad' => $actividad,
+                    'actividad' => $actividad->descripcion,
+                    'fecha' => $actividad->fecha_inicio,
                     'url' => url('/admin/actividad/'.$actividad->id)
                 ]
             ];

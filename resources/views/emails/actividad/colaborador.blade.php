@@ -1,12 +1,13 @@
 @component('mail::message')
-# Introduction
+Actividad asignada.
 
-The body of your message.
+{{ $details['msj'] }} en la plataforma, denominada {{ $details['actividad'] }} y programada para el día
+{{ $details['fecha'] }} .
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => $details['url']])
+Ver la actividad
 @endcomponent
 
-Thanks,<br>
+Gracias,<br>
 {{ config('app.name') }}
 @endcomponent
