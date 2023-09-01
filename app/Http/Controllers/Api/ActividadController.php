@@ -116,20 +116,48 @@ class ActividadController extends Controller
     public function update(ActividadRequest $request, Actividad $actividade)
     {
         try {
-          
-            $actividade->descripcion = $request->descripcion;
-
-            $actividade->fecha_inicio = date('Y-m-d', strtotime($request->fecha_inicio));
             
-            $actividade->fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
-    
-            $actividade->colaborador_id = $request->colaborador_id;
-    
-            $actividade->estado_id = $request->estado_id;
+            $colaborador_actividad = $actividade->colaborador_id;
 
-            $actividade->color = $request->color;
+            // $actividade->descripcion = $request->descripcion;
+
+            // $actividade->fecha_inicio = date('Y-m-d', strtotime($request->fecha_inicio));
+            
+            // $actividade->fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
     
-            $actividade->save();
+            // $actividade->colaborador_id = $request->colaborador_id;
+    
+            // $actividade->estado_id = $request->estado_id;
+
+            // $actividade->color = $request->color;
+    
+            // $actividade->save();
+
+
+            $request->merge([
+                'fecha_inicio' => date('Y-m-d', strtotime($request->fecha_inicio)),
+                'fecha_fin' => date('Y-m-d', strtotime($request->fecha_fin)),
+            ]);
+
+            $actividad = $actividade->update($request->all());
+
+            if ($colaborador_actividad != $request->colaborador_id) {
+                $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
+
+                $msg = 'Usted tiene una nueva actividad asignada';
+
+                $data = [
+                    'actividad' => [
+                        'msj' => $msg,
+                        'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
+                        'actividad' => $actividade->descripcion,
+                        'fecha' => $actividade->fecha_inicio,
+                        'url' => url('/admin/actividad/'.$actividade->id)
+                    ]
+                ];
+
+                $colaborador_actividad->notify(new ActividadAsignada($data));
+            }
     
             return response()->json($actividade);
             

@@ -133,10 +133,37 @@ class ActividadController extends Controller
      */
     public function update(ActividadRequest $request, Actividad $actividade)
     {
-        $actividad = $actividade->update($request->all());
+        try {
 
-        session()->flash('message', ['success', ("Se ha actualizado la actividad")]);
-        return redirect()->route('actividades.index');
+            $colaborador_actividad = $actividade->colaborador_id;
+
+            $actividad = $actividade->update($request->all());
+
+            if ($colaborador_actividad != $request->colaborador_id) {
+                $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
+
+                $msg = 'Usted tiene una nueva actividad asignada';
+
+                $data = [
+                    'actividad' => [
+                        'msj' => $msg,
+                        'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
+                        'actividad' => $actividade->descripcion,
+                        'fecha' => $actividade->fecha_inicio,
+                        'url' => url('/admin/actividad/'.$actividade->id)
+                    ]
+                ];
+
+                $colaborador_actividad->notify(new ActividadAsignada($data));
+            }
+           
+    
+            session()->flash('message', ['success', ("Se ha actualizado la actividad")]);
+            return redirect()->route('actividades.index');
+
+        } catch (\Exception $e) {
+            //throw $th;
+        }
     }
 
     /**
