@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ActividadRequest;
 use App\Models\Actividad;
+use App\Models\Colaborador;
 use App\Models\Role;
+use App\Notifications\ActividadAsignada;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller
@@ -57,6 +59,21 @@ class ActividadController extends Controller
 
 
             $actividad = Actividad::create($request->all());
+
+            $colaborador = Colaborador::where('id', $request->colaborador_id)->first();
+
+            $msg = 'Usted tiene una nueva actividad asignada';
+
+            $data = [
+                'actividad' => [
+                    'msj' => $msg,
+                    'colaborador' => $colaborador->nombres.' '.$colaborador->apellidos,
+                    'actividad' => $actividad,
+                    'url' => url('/admin/actividad/'.$actividad->id)
+                ]
+            ];
+
+            $colaborador->notify(new ActividadAsignada($data));
 
 
             return $actividad;
