@@ -145,6 +145,10 @@
                     "targets": [6],
                     "render": function ( data, type, row ) {
                         return `<div class="btn-group">
+                            <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
+                                <i class="fa fa-eye"></i>
+                            </button>
+
                             <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
                                 <i class="fa fa-edit"></i>
                             </button>
@@ -187,6 +191,10 @@
 
         function event_edit(id) {
             window.location.href = `${SITEURL}/admin/actividades/${id}/edit`;
+        }
+
+        function event_view(id) {
+            window.location.href = `${SITEURL}/admin/actividades/${id}`;
         }
 
 

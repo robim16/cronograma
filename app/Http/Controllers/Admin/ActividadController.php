@@ -98,9 +98,11 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Actividad $actividade)
     {
-        //
+        $actividad = $actividade->load(['colaborador', 'estado']);
+
+        return view('admin.actividades.show', compact('actividad'));
     }
 
     /**
