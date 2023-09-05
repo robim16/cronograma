@@ -38,7 +38,11 @@
         var end = '';
         var calendar;
 
+        var isAdmin = "";
+
         $(document).ready(function() {
+
+            verify_is_admin();
 
             var calendarEl = document.getElementById('calendar')
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -75,14 +79,13 @@
                 
                     start = info.startStr;
                     end = info.endStr;
-
                     
                     $('#descripcion').val('');
                     $('#estado_id').val('');
                     $('#colaborador_id').val('');
                     $('#event_id').val('');
                     $('#color').val('');
-
+                    
                     $('#colaborador_id').html('');
                     $('#estado_id').html('');
 
@@ -90,83 +93,90 @@
                     $('#fecha_fin').val(end);
 
 
-                    axios.get(`${SITEURL}/api/colaboradores`)
-                        .then(function (res) {
-
-                            $("#colaborador_id").append(`<option value="">
-                                Seleccione </option>`);
-
-                            $.each(res.data, function (index, colaborador) {
-                                $("#colaborador_id").append(`<option value="${colaborador.id}">
-                                    ${colaborador.nombres} ${colaborador.apellidos}
-                                    </option>`);
-                            });
-
-                        })
-                        .catch(err => console.log(err));
-        
-        
-        
-                    axios.get(`${SITEURL}/api/estados`)
-                        .then(function (res) {
-
-                            $("#estado_id").append(`<option value="">
-                                Seleccione </option>`);
-
-                            $.each(res.data, function (index, estado) {
-                                $("#estado_id").append(`<option value="${estado.id}">
-                                    ${estado.nombre}</option>`);
-                            });
-
-                        })
-                        .catch(err => console.log(err));
-                            
-
-                    calendar.unselect();
-
-                    $('.modal-title').html('Crear actividad');
-
-                    $('#modal-actividad').modal('show');
+                    if (isAdmin == '1') {
+                        
+                        axios.get(`${SITEURL}/api/colaboradores`)
+                            .then(function (res) {
+    
+                                $("#colaborador_id").append(`<option value="">
+                                    Seleccione </option>`);
+    
+                                $.each(res.data, function (index, colaborador) {
+                                    $("#colaborador_id").append(`<option value="${colaborador.id}">
+                                        ${colaborador.nombres} ${colaborador.apellidos}
+                                        </option>`);
+                                });
+    
+                            })
+                            .catch(err => console.log(err));
+            
+            
+            
+                        axios.get(`${SITEURL}/api/estados`)
+                            .then(function (res) {
+    
+                                $("#estado_id").append(`<option value="">
+                                    Seleccione </option>`);
+    
+                                $.each(res.data, function (index, estado) {
+                                    $("#estado_id").append(`<option value="${estado.id}">
+                                        ${estado.nombre}</option>`);
+                                });
+    
+                            })
+                            .catch(err => console.log(err));
+                                
+    
+                        calendar.unselect();
+    
+                        $('.modal-title').html('Crear actividad');
+    
+                        $('#modal-actividad').modal('show');
+                    }
                     
                 },
                 eventDrop: function(info) {
-                    alert(info.event.title + " ha sido reprogramado a la fecha " + info.event.startStr);
 
-                    Swal.fire({
-                        title: 'Desea confirmar este cambio?',
-                        showDenyButton: true,
-                        showCancelButton: false,
-                        confirmButtonText: 'Aceptar',
-                        denyButtonText: `Cancelar`,
-                    }).then((result) => {
+                    if (isAdmin == '1') {
                         
-                        if (result.isConfirmed) {
-
-                            let id = info.event.id;
-
-                            axios.put(`${SITEURL}/api/actividades/${id}`, {
-                                descripcion: info.event.title,
-                                colaborador_id: info.event.extendedProps.colaborador_id,
-                                estado_id: info.event.extendedProps.estado_id,
-                                fecha_inicio: info.event.startStr,
-                                fecha_fin: info.event.endStr,
-                                color: info.event.backgroundColor
-                            })
-                                .then( function (res) {
-                                
-                                    console.log(res);
-                                    toastr.success('Se ha reprogramado la actividad exitosamente.')
-                                })
-                                .catch( function (err) {
-                                    console.log(err);
-                                    toastr.error('Ha ocurrido un error al reprogramar.');
-                                });  
-
-                        } else if (result.isDenied) {
-                            info.revert();
+                        alert(info.event.title + " ha sido reprogramado a la fecha " + info.event.startStr);
+    
+                        Swal.fire({
+                            title: 'Desea confirmar este cambio?',
+                            showDenyButton: true,
+                            showCancelButton: false,
+                            confirmButtonText: 'Aceptar',
+                            denyButtonText: `Cancelar`,
+                        }).then((result) => {
                             
-                        }
-                    })
+                            if (result.isConfirmed) {
+    
+                                let id = info.event.id;
+    
+                                axios.put(`${SITEURL}/api/actividades/${id}`, {
+                                    descripcion: info.event.title,
+                                    colaborador_id: info.event.extendedProps.colaborador_id,
+                                    estado_id: info.event.extendedProps.estado_id,
+                                    fecha_inicio: info.event.startStr,
+                                    fecha_fin: info.event.endStr,
+                                    color: info.event.backgroundColor
+                                })
+                                    .then( function (res) {
+                                    
+                                        console.log(res);
+                                        toastr.success('Se ha reprogramado la actividad exitosamente.')
+                                    })
+                                    .catch( function (err) {
+                                        console.log(err);
+                                        toastr.error('Ha ocurrido un error al reprogramar.');
+                                    });  
+    
+                            } else if (result.isDenied) {
+                                info.revert();
+                                
+                            }
+                        })
+                    }
 
                 },
                 eventClick: function(info) {
@@ -193,6 +203,13 @@
                             $('#fecha_inicio').val(info.event.startStr);
                             $('#fecha_fin').val(info.event.endStr);
                             $('#color').val(info.event.backgroundColor);
+
+                            if (isAdmin == 0) {
+                                $('#descripcion').attr('disabled', 'disabled');
+                                $('#fecha_inicio').attr('disabled', 'disabled');
+                                $('#fecha_fin').attr('disabled', 'disabled');
+                                $('#color').attr('disabled', 'disabled');
+                            }
 
         
                             axios.get(`${SITEURL}/api/colaboradores`)
@@ -227,7 +244,11 @@
         
                                 })
                                 .catch(err => console.log(err));
-                            
+
+                            if (isAdmin == 0) {
+                                $('#colaborador_id').attr('disabled', 'disabled');
+                            }
+
                             $('.modal-title').html('Editar actividad');
                             $('#modal-actividad').modal('show');
 
@@ -265,11 +286,13 @@
 
                         }
                     })
+                    
 
                 }
             })
 
             calendar.render()
+
         });
 
 
@@ -354,6 +377,15 @@
                     });  
 
             }
+        }
+
+
+        function verify_is_admin(){
+            axios.get(`${SITEURL}/api/admin`)
+                .then(function (res) {
+                   isAdmin = res.data;
+                })
+                .catch(err => console.log(err));
         }
     </script>
 @endpush

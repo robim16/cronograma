@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ActividadController;
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\ColaboradorController;
 use App\Http\Controllers\Api\EstadoController;
 use App\Http\Controllers\Api\RolController;
@@ -33,6 +34,10 @@ Route::prefix('estados')->group(function () {
 
 Route::prefix('roles')->group(function () {
     Route::get('/', [RolController::class, 'index']);
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'verify_admin']);
 });
 
 Route::prefix('actividades')->group(function () {

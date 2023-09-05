@@ -118,12 +118,12 @@ class ActividadController extends Controller
         try {
             
 
-            $user = auth()->user();
+            // $user = auth()->user();
 
-            $rol = $user->role_id;
+            // $rol = $user->role_id;
 
 
-            if ($rol == Role::ADMINISTRADOR || ($rol == Role::COLABORADOR)) {
+            // if ($rol == Role::ADMINISTRADOR || ($rol == Role::COLABORADOR)) {
                
                 $colaborador_actividad = $actividade->colaborador_id;
     
@@ -155,9 +155,9 @@ class ActividadController extends Controller
         
                 return response()->json($actividade);
                 
-            } else {
-                return response()->json('Unauthorized', 401);
-            }
+            // } else {
+            //     return response()->json('Unauthorized', 401);
+            // }
             
         } catch (\Exception $e) {
             return $e;
