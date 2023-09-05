@@ -144,20 +144,31 @@
                 {
                     "targets": [6],
                     "render": function ( data, type, row ) {
-                        return `<div class="btn-group">
-                            <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
-                                <i class="fa fa-eye"></i>
-                            </button>
 
-                            <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
-                                <i class="fa fa-edit"></i>
-                            </button>
+                        @if(auth()->user()->rol_id == 1)
 
-                            <button class="btn btn-danger btn-sm" onclick="event_delete(${data})">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            
-                        </div>` 
+                            return `<div class="btn-group">
+                                <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+
+                                <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+
+                                <button class="btn btn-danger btn-sm" onclick="event_delete(${data})">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                
+                            </div>` 
+                        @else
+
+                            return `<div class="btn-group">
+                                <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>`;
+                        @endif
                     }
                 },
 

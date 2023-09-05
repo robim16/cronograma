@@ -54,18 +54,21 @@
                                 <td>{{ $actividad->estado->nombre }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('actividades.edit', $actividad->id)}}" class="btn btn-success btn-sm">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    
-                                        <form action="{{ route('actividades.destroy', $actividad->id)}}" method="post">
-                                            @method('DELETE')
-                                            @csrf
+                                        @if (auth()->user()->rol_id == 1)
+                                            <a href="{{ route('actividades.edit', $actividad->id)}}" class="btn btn-success btn-sm">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        
+                                            <form action="{{ route('actividades.destroy', $actividad->id)}}" method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                                             
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
