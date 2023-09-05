@@ -1,5 +1,5 @@
 const app = new Vue({
-    el: '#notifications',
+    el: '#notificaciones',
     data: {
         notifications: [],
     },
@@ -21,7 +21,9 @@ const app = new Vue({
         let url = '/cronograma/public/admin/notification'
        
         axios.get(url).then(response => {
-          this.notifications = response.data;
+            this.notifications = response.data;
+    
+            console.log(response.data);
         }).catch(error => {
             console.log(error)
         });

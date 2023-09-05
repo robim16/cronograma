@@ -4841,7 +4841,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (() => {
 
 var app = new Vue({
-  el: '#notifications',
+  el: '#notificaciones',
   data: {
     notifications: []
   },
@@ -4859,6 +4859,7 @@ var app = new Vue({
     var url = '/cronograma/public/admin/notification';
     axios.get(url).then(function (response) {
       _this.notifications = response.data;
+      console.log(response.data);
     })["catch"](function (error) {
       console.log(error);
     });
@@ -4910,7 +4911,7 @@ Vue.component('example-component', (__webpack_require__(/*! ./components/Example
 var app = new Vue({
   el: '#app'
 });
-if (document.getElementById('notifications')) {
+if (document.getElementById('notificaciones')) {
   __webpack_require__(/*! ./admin/notifications */ "./resources/js/admin/notifications.js");
 }
 

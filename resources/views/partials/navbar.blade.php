@@ -100,7 +100,7 @@
             </div>
         </li> --}}
         <!-- Notifications Dropdown Menu -->
-        <div id="notifications">
+        <div id="notificaciones">
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
@@ -114,7 +114,7 @@
                         <a href="#" class="dropdown-item" v-for="item in notifications" :key="item.id"
                             @click.prevent="readNotification(item.id, item.data.datos.actividad.url)">
                             <i class="fas fa-envelope mr-2"></i>
-                            @{{item.data.datos.actividad.descripcion}} @{{item.data.datos.actividad.fecha}}
+                            @{{item.data.data.actividad.descripcion}} @{{item.data.data.actividad.fecha}}
                             {{-- <span class="float-right text-muted text-sm">3 mins</span> --}}
                         </a>
                     </div>
