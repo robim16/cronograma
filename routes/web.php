@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ActividadController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ColaboradorController;
 use App\Http\Controllers\Admin\CronogramaController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\RolController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,12 @@ Route::namespace('Admin')->group(function () {
         Route::prefix('cronograma')->group(function () {
             Route::get('/', [CronogramaController::class, 'index'])->name('cronograma.index');
             Route::get('/events', [CronogramaController::class, 'events']);
+        });
+
+
+        Route::prefix('notification')->group(function () {
+            Route::get('/', [NotificationController::class, 'index']);
+            Route::put('/{notification}', [NotificationController::class, 'update']);
         });
     });
 });

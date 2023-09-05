@@ -1824,6 +1824,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/notifications.js":
+/*!*********************************************!*\
+  !*** ./resources/js/admin/notifications.js ***!
+  \*********************************************/
+/***/ (() => {
+
+var app = new Vue({
+  el: '#notifications',
+  data: {
+    notifications: []
+  },
+  computed: {},
+  methods: {
+    readNotification: function readNotification(id, ruta) {
+      var url = '/cronograma/public/admin/notification/' + id;
+      axios.put(url).then(function (response) {
+        window.location.href = ruta;
+      });
+    }
+  },
+  created: function created() {
+    var _this = this;
+    var url = '/cronograma/public/admin/notification';
+    axios.get(url).then(function (response) {
+      _this.notifications = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+
+    // var userId = $('meta[name="userId"]').attr('content');
+
+    // Echo.private('App.User.' + userId).notification((notification) => {
+    //     this.notifications.unshift(notification);
+    // });
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -1861,6 +1900,9 @@ Vue.component('example-component', (__webpack_require__(/*! ./components/Example
 var app = new Vue({
   el: '#app'
 });
+if (document.getElementById('notifications')) {
+  __webpack_require__(/*! ./admin/notifications */ "./resources/js/admin/notifications.js");
+}
 
 /***/ }),
 
