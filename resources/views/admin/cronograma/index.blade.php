@@ -322,6 +322,7 @@
                     color
                 })
                     .then( function (res) {
+                        
                         toastr.success('Se ha editado la actividad exitosamente.')
 
                         if (typeof calendar !== 'undefined') {
@@ -331,8 +332,15 @@
                         $('#modal-actividad').modal('hide');
                     })
                     .catch( function (err) {
-                        console.log(err);
-                        toastr.error('Ha ocurrido un error al editar.');
+                        if (err.response) {
+                            if (err.response.status) {
+                                toastr.error('Los colaboradores sólo pueden cambiar el estado de las tareas.');
+                            }
+                            else{
+
+                                toastr.error('Ha ocurrido un error al editar.');
+                            }
+                        }
                     });  
 
             }

@@ -117,49 +117,47 @@ class ActividadController extends Controller
     {
         try {
             
-            $colaborador_actividad = $actividade->colaborador_id;
 
-            // $actividade->descripcion = $request->descripcion;
+            $user = auth()->user();
 
-            // $actividade->fecha_inicio = date('Y-m-d', strtotime($request->fecha_inicio));
+            $rol = $user->role_id;
+
+
+            if ($rol == Role::ADMINISTRADOR || ($rol == Role::COLABORADOR)) {
+               
+                $colaborador_actividad = $actividade->colaborador_id;
+    
             
-            // $actividade->fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
+                $request->merge([
+                    'fecha_inicio' => date('Y-m-d', strtotime($request->fecha_inicio)),
+                    'fecha_fin' => date('Y-m-d', strtotime($request->fecha_fin)),
+                ]);
     
-            // $actividade->colaborador_id = $request->colaborador_id;
+                $actividad = $actividade->update($request->all());
     
-            // $actividade->estado_id = $request->estado_id;
-
-            // $actividade->color = $request->color;
+                if ($colaborador_actividad != $request->colaborador_id) {
+                    $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
     
-            // $actividade->save();
-
-
-            $request->merge([
-                'fecha_inicio' => date('Y-m-d', strtotime($request->fecha_inicio)),
-                'fecha_fin' => date('Y-m-d', strtotime($request->fecha_fin)),
-            ]);
-
-            $actividad = $actividade->update($request->all());
-
-            if ($colaborador_actividad != $request->colaborador_id) {
-                $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
-
-                $msg = 'Usted tiene una nueva actividad asignada';
-
-                $data = [
-                    'actividad' => [
-                        'msj' => $msg,
-                        'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
-                        'actividad' => $actividade->descripcion,
-                        'fecha' => $actividade->fecha_inicio,
-                        'url' => url('/admin/actividad/'.$actividade->id)
-                    ]
-                ];
-
-                $colaborador_actividad->notify(new ActividadAsignada($data));
+                    $msg = 'Usted tiene una nueva actividad asignada';
+    
+                    $data = [
+                        'actividad' => [
+                            'msj' => $msg,
+                            'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
+                            'actividad' => $actividade->descripcion,
+                            'fecha' => $actividade->fecha_inicio,
+                            'url' => url('/admin/actividad/'.$actividade->id)
+                        ]
+                    ];
+    
+                    $colaborador_actividad->notify(new ActividadAsignada($data));
+                }
+        
+                return response()->json($actividade);
+                
+            } else {
+                return response()->json('Unauthorized', 401);
             }
-    
-            return response()->json($actividade);
             
         } catch (\Exception $e) {
             return $e;

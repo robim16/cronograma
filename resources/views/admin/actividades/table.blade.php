@@ -145,7 +145,7 @@
                     "targets": [6],
                     "render": function ( data, type, row ) {
 
-                        @if(auth()->user()->rol_id == 1)
+                        @if(auth()->user()->role_id == 1)
 
                             return `<div class="btn-group">
                                 <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">

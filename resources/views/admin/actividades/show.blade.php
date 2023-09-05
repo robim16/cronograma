@@ -54,7 +54,7 @@
                                 <td>{{ $actividad->estado->nombre }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        @if (auth()->user()->rol_id == 1)
+                                        @if (auth()->user()->role_id == 1)
                                             <a href="{{ route('actividades.edit', $actividad->id)}}" class="btn btn-success btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
