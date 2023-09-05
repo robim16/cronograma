@@ -173,10 +173,21 @@ class ActividadController extends Controller
     public function destroy(Request $request, Actividad $actividade)
     {
         try {
-          
-            $delete = $actividade->delete();
 
-            return response()->json($delete);
+            $user = auth()->user();
+
+            $rol = $user->role_id;
+          
+            if ($rol == Role::ADMINISTRADOR) {
+               
+                $delete = $actividade->delete();
+    
+                return response()->json($delete);
+
+            } else {
+                return response()->json('Unauthorized', 401);
+            }
+            
 
         } catch (\Exception $e) {
             return $e;

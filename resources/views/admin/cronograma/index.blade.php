@@ -241,6 +241,7 @@
                                 
                                 axios.delete(`${SITEURL}/api/actividades/${id}`)
                                     .then(function (res) {
+                                        
                                         toastr.success('Se ha eliminado la actividad exitosamente.')
                                         
                                         if (typeof calendar !== 'undefined') {
@@ -249,7 +250,16 @@
                                     })
                                     .catch( function (err) {
                                         console.log(err);
-                                        toastr.error('Ha ocurrido un error al eliminar.');
+
+                                        if (err.response) {
+                                            if (err.response.status == 401) {
+                                                toastr.error('Los colaboradores no pueden eliminar actividades.');
+                                            }
+                                            else{
+                                                toastr.error('Ha ocurrido un error al eliminar.');
+                                            }
+                                        }
+
                                     });  
                             }
 
@@ -333,7 +343,7 @@
                     })
                     .catch( function (err) {
                         if (err.response) {
-                            if (err.response.status) {
+                            if (err.response.status == 401) {
                                 toastr.error('Los colaboradores sólo pueden cambiar el estado de las tareas.');
                             }
                             else{
