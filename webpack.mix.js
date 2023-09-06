@@ -17,7 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 
     mix.styles([
-        'public/asset/plugins/bootstrap-4.1.2/bootstrap.min.css',
+        // 'public/asset/plugins/bootstrap-4.1.2/bootstrap.min.css',
         'public/adminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
         'public/adminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css',
         'public/adminLte/plugins/jqvmap/jqvmap.min.css',
@@ -29,9 +29,9 @@ mix.js('resources/js/app.js', 'public/js')
 
 
     mix.scripts([
-        'public/adminLte/plugins/jquery/jquery.min.js',
+        // 'public/adminLte/plugins/jquery/jquery.min.js',
         // 'public/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js',
-        'public/asset/plugins/bootstrap-4.1.2/bootstrap.min.js',
+        // 'public/asset/plugins/bootstrap-4.1.2/bootstrap.min.js',
         'public/adminLte/plugins/chart.js/Chart.min.js',
         'public/adminLte/plugins/sparklines/sparkline.js',
         'public/adminLte/plugins/jqvmap/jquery.vmap.min.js',

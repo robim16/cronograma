@@ -20,10 +20,12 @@
                 <h3 class="card-title">Actividades</h3>
 
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
-                            class="fas fa-plus"></i> Crear</a>
-                    </div>
+                    @if (auth()->user()->role_id == 1)
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <a class="m-2 float-right btn btn-primary" href="{{ route('actividades.create') }}"> <i
+                                class="fas fa-plus"></i> Crear</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <!-- /.card-header -->

@@ -254,6 +254,7 @@
 
                         } else if (result.isDenied) {
                             
+
                             var deleteMsg = confirm("Realmente desea eliminar la actividad?");
 
                             

@@ -107,14 +107,14 @@
                     <span class="badge badge-warning navbar-badge" v-text="notifications.length"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">@{{notifications.length}} Notificaciones</span>
+                    <span class="dropdown-item dropdown-header">@{{notifications.length}} Actividades nuevas</span>
                     <div class="dropdown-divider"></div>
 
                     <div v-if="notifications.length">
                         <a href="#" class="dropdown-item" v-for="item in notifications" :key="item.id"
                             @click.prevent="readNotification(item.id, item.data.datos.actividad.url)">
                             <i class="fas fa-envelope mr-2"></i>
-                            @{{item.data.data.actividad.descripcion}} @{{item.data.data.actividad.fecha}}
+                            @{{ item.data.data.actividad.actividad}} @{{item.data.data.actividad.fecha}}
                             {{-- <span class="float-right text-muted text-sm">3 mins</span> --}}
                         </a>
                     </div>
