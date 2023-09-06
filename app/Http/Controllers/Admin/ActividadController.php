@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActividadRequest;
+use App\Jobs\ActividadEmailJob;
 use App\Models\Actividad;
 use App\Models\Colaborador;
 use App\Models\Estado;
@@ -80,7 +81,9 @@ class ActividadController extends Controller
                 ]
             ];
 
-            $colaborador->notify(new ActividadAsignada($data));
+            // $colaborador->notify(new ActividadAsignada($data));
+
+            ActividadEmailJob::dispatch($colaborador, $data);
     
             session()->flash('message', ['success', ("Se ha creado la actividad")]);
             return redirect()->route('actividades.index');
