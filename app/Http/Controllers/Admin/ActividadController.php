@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ActividadRequest;
 use App\Jobs\ActividadEmailJob;
 use App\Models\Actividad;
+use App\Models\Categoria;
 use App\Models\Colaborador;
 use App\Models\Estado;
 use App\Notifications\ActividadAsignada;
@@ -52,7 +53,10 @@ class ActividadController extends Controller
         $estados = Estado::orderBy('nombre')
             ->get();
 
-        return view('admin.actividades.create', compact('actividade', 'colaboradores', 'estados'));
+        $categorias = Categoria::orderBy('nombre')->get();
+
+        return view('admin.actividades.create', compact('actividade', 'colaboradores',
+         'estados', 'categorias'));
     }
 
     /**
@@ -124,7 +128,11 @@ class ActividadController extends Controller
         $estados = Estado::orderBy('nombre')
             ->get();
 
-        return view('admin.actividades.edit', compact('actividade', 'colaboradores', 'estados'));
+
+        $categorias = Categoria::orderBy('nombre')->get();
+
+        return view('admin.actividades.edit', compact('actividade', 'colaboradores',
+         'estados', 'categorias'));
     }
 
     /**

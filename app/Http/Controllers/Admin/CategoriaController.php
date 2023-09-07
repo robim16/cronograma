@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,7 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoriaRequest $request)
     {
         $categoria = Categoria::create($request->all());
 
@@ -73,9 +74,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categoria $categoria)
     {
-        //
+        return view('admin.categorias.edit', compact('categoria'));
     }
 
     /**
@@ -85,9 +86,12 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Categoria $categoria)
     {
-        //
+        $categoria = $categoria->update($request->all());
+
+        session()->flash('message', ['success', ("Se ha editado la categoría")]);
+        return redirect()->route('categorias.index');
     }
 
     /**

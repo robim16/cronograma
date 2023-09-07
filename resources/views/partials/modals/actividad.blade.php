@@ -43,6 +43,15 @@
                         </select>
                         <small class="form-text error-message" id="colaborador_id-error"></small>
                     </div>
+
+                    <div class="form-group">
+                        <label for="categoria_id">Categoría</label>
+                        <select name="categoria_id" id="categoria_id" class="form-control">
+                            <option value="">Seleccione</option>
+                        </select>
+                        <small class="form-text error-message" id="categoria_id-error"></small>
+                    </div>
+
                     <div class="form-group">
                         <label for="estado_id">Estado</label>
                         <select name="estado_id" id="estado_id" class="form-control">
@@ -50,6 +59,7 @@
                         </select>
                         <small class="form-text error-message" id="estado_id-error"></small>
                     </div>
+
                     <div class="form-group">
                         <label for="color">Color</label>
                         <input type="color" name="color" id="color" class="form-control">

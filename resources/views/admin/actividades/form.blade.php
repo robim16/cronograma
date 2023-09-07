@@ -67,6 +67,22 @@
                     @endif
                 </div>
 
+
+                <div class="form-group">
+                    <label for="categoria_id">Categoría</label>
+                    <select name="categoria_id" id="categoria_id" class="form-control">
+                        <option value="">Seleccione</option>
+                        @foreach ($categorias as $categoria)
+                            <option value="{{$categoria->id}}" @if (@$actividade->categoria_id == $categoria->id)
+                                selected
+                            @endif>{{ $categoria->nombre }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('categoria_id'))
+                        <span class="text-danger">{{ $errors->first('categoria_id') }}</span>
+                    @endif
+                </div>
+
                 <div class="form-group">
                     <label for="estado_id">Estado</label>
                     <select name="estado_id" id="estado_id" class="form-control">

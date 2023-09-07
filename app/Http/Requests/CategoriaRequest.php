@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CategoriaRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CategoriaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,30 @@ class CategoriaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            //
-        ];
+        $method = $request->method();
+
+        switch($method):
+
+            case 'POST':
+                $rules = [
+                    'nombre' => 'required',
+                    'descripcion' => 'required',
+                ];
+                break;
+
+            case 'PUT':
+                $rules = [
+                    'nombre' => 'required',
+                    'descripcion' => 'required',
+                ];
+                break;
+            case 'PATCH':
+
+            default: break;
+        endswitch;
+
+        return $rules;
     }
 }

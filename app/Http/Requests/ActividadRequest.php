@@ -33,6 +33,7 @@ class ActividadRequest extends FormRequest
                     'descripcion' => 'required',
                     'fecha_inicio' => 'required',
                     'fecha_fin' => 'required',
+                    'categoria_id' => 'required',
                     'colaborador_id' => 'required',
                     'estado_id' => 'required'
                 ];
@@ -43,6 +44,7 @@ class ActividadRequest extends FormRequest
                     'descripcion' => 'required',
                     'fecha_inicio' => 'sometimes',
                     'fecha_fin' => 'sometimes',
+                    'categoria_id' => 'required',
                     'colaborador_id' => 'required',
                     'estado_id' => 'required'
                 ];

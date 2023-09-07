@@ -38,6 +38,7 @@
                             <th>Fecha de inicio</th>
                             <th>Fecha de fin</th>
                             <th>Colaborador</th>
+                            <th>Categoría</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -79,6 +80,7 @@
                             <th>Fecha de inicio</th>
                             <th>Fecha de fin</th>
                             <th>Colaborador</th>
+                            <th>Categoría</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -126,6 +128,7 @@
                 { data: 'fecha_inicio' },
                 { data: 'fecha_fin' },
                 { data: 'colaborador' },
+                { data: 'categoria_id' },
                 { data: 'estado_id' },
                 { data: 'id' },
 
@@ -140,11 +143,17 @@
                 {
                     "targets": [5],
                     "render": function ( data, type, row ) {
-                        return `${row.estado.nombre}` 
+                        return `${row.categoria.nombre}` 
                     }
                 },
                 {
                     "targets": [6],
+                    "render": function ( data, type, row ) {
+                        return `${row.estado.nombre}` 
+                    }
+                },
+                {
+                    "targets": [7],
                     "render": function ( data, type, row ) {
 
                         @if(auth()->user()->role_id == 1)

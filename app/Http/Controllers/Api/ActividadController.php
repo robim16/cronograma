@@ -28,7 +28,7 @@ class ActividadController extends Controller
         $actividades = Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
             return $query->where('colaborador_id', $user->colaborador->id);
         })
-            ->with(['colaborador', 'estado'])
+            ->with(['colaborador', 'estado', 'categoria'])
             ->orderBy('fecha_inicio')
             ->get();
 
