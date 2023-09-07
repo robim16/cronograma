@@ -14,10 +14,16 @@ class Actividad extends Model
         'descripcion',
         'fecha_inicio',
         'fecha_fin',
+        'categoria_id',
         'colaborador_id',
         'estado_id',
         'color'
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 
     public function colaborador()
     {

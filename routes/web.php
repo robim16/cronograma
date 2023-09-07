@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ActividadController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\ColaboradorController;
 use App\Http\Controllers\Admin\CronogramaController;
 use App\Http\Controllers\Admin\NotificationController;
@@ -38,6 +39,7 @@ Route::group(['prefix' => "/admin", "middleware" => [sprintf("role:%s", \App\Mod
 
 Route::prefix('admin')->group(function () {
     Route::resource('actividades', ActividadController::class);
+    Route::resource('categorias', CategoriaController::class);
 });
 
 Route::namespace('Admin')->group(function () {
@@ -56,5 +58,6 @@ Route::namespace('Admin')->group(function () {
             Route::get('/', [NotificationController::class, 'index']);
             Route::put('/{notification}', [NotificationController::class, 'update']);
         });
+
     });
 });

@@ -13,6 +13,15 @@ class CreateActividadesTable extends Migration
      */
     public function up()
     {
+
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->timestamps();
+        });
+
+
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
@@ -21,6 +30,8 @@ class CreateActividadesTable extends Migration
             $table->string('color')->nullable();
             $table->unsignedBigInteger('colaborador_id');
             $table->foreign('colaborador_id')->references('id')->on('colaboradores');
+            $table->unsignedBigInteger('categoria_id');
+            $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->unsignedBigInteger('estado_id');
             $table->foreign('estado_id')->references('id')->on('estados');
             $table->timestamps();
