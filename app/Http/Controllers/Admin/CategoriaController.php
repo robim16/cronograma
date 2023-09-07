@@ -3,10 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,9 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::orderBy('nombre')->get();
+
+        return view('admin.categorias.index', compact('categorias'));
     }
 
     /**
@@ -24,7 +39,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categorias.create');
     }
 
     /**
@@ -35,7 +50,10 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoria = Categoria::create($request->all());
+
+        session()->flash('message', ['success', ("Se ha creado la categoría")]);
+        return redirect()->route('categorias.index');
     }
 
     /**
