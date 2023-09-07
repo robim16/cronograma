@@ -83,10 +83,12 @@
                     $('#descripcion').val('');
                     $('#estado_id').val('');
                     $('#colaborador_id').val('');
+                    $('#categoria_id').val('');
                     $('#event_id').val('');
                     $('#color').val('');
                     
                     $('#colaborador_id').html('');
+                    $('#categoria_id').html('');
                     $('#estado_id').html('');
 
                     $('#fecha_inicio').val(start);
@@ -105,6 +107,21 @@
                                     $("#colaborador_id").append(`<option value="${colaborador.id}">
                                         ${colaborador.nombres} ${colaborador.apellidos}
                                         </option>`);
+                                });
+    
+                            })
+                            .catch(err => console.log(err));
+
+
+                        axios.get(`${SITEURL}/api/categorias`)
+                            .then(function (res) {
+    
+                                $("#categoria_id").append(`<option value="">
+                                    Seleccione </option>`);
+    
+                                $.each(res.data, function (index, categoria) {
+                                    $("#categoria_id").append(`<option value="${categoria.id}">
+                                        ${categoria.nombre} </option>`);
                                 });
     
                             })
@@ -157,6 +174,7 @@
                                     descripcion: info.event.title,
                                     colaborador_id: info.event.extendedProps.colaborador_id,
                                     estado_id: info.event.extendedProps.estado_id,
+                                    categoria_id: info.event.extendedProps.categoria_id,
                                     fecha_inicio: info.event.startStr,
                                     fecha_fin: info.event.endStr,
                                     color: info.event.backgroundColor
@@ -195,9 +213,11 @@
                             $('#event_id').val(info.event.id);
 
                             $('#estado_id').val('');
+                            $('#categoria_id').val('');
                             $('#colaborador_id').val('');
 
                             $('#colaborador_id').html('');
+                            $('#categoria_id').html('');
                             $('#estado_id').html('');
 
                             $('#fecha_inicio').val(info.event.startStr);
@@ -228,6 +248,22 @@
                                 })
                                 .catch(err => console.log(err));
         
+
+                            axios.get(`${SITEURL}/api/categorias`)
+                                .then(function (res) {
+        
+                                    var cat = info.event.extendedProps.categoria_id;
+
+                                    $("#categoria_id").append(`<option value="">
+                                        Seleccione </option>`);
+        
+                                    $.each(res.data, function (index, categoria) {
+                                        $("#categoria_id").append(`<option value="${categoria.id}" ${cat == categoria.id ? 'selected' : ''}>
+                                            ${categoria.nombre} </option>`);
+                                    });
+        
+                                })
+                                .catch(err => console.log(err));
         
         
                             axios.get(`${SITEURL}/api/estados`)
@@ -247,6 +283,7 @@
 
                             if (isAdmin == 0) {
                                 $('#colaborador_id').attr('disabled', 'disabled');
+                                $('#categoria_id').attr('disabled', 'disabled');
                             }
 
                             $('.modal-title').html('Editar actividad');
@@ -306,6 +343,7 @@
                 let descripcion = $('#descripcion').val();
                 let colaborador_id = $('#colaborador_id').val();
                 let estado_id = $('#estado_id').val();
+                let categoria_id = $('#categoria_id').val();
                 let fecha_inicio = $('#fecha_inicio').val();
                 let fecha_fin = $('#fecha_fin').val();
                 let color = $('#color').val();
@@ -314,6 +352,7 @@
                 axios.post(`${SITEURL}/api/actividades`, {
                     descripcion,
                     colaborador_id,
+                    categoria_id,
                     estado_id,
                     fecha_inicio,
                     fecha_fin,
@@ -343,6 +382,7 @@
                 let descripcion = $('#descripcion').val();
                 let colaborador_id = $('#colaborador_id').val();
                 let estado_id = $('#estado_id').val();
+                let categoria_id = $('#categoria_id').val();
                 let fecha_inicio = $('#fecha_inicio').val();
                 let fecha_fin = $('#fecha_fin').val();
                 let color = $('#color').val();
@@ -350,6 +390,7 @@
                 axios.put(`${SITEURL}/api/actividades/${id}`, {
                     descripcion,
                     colaborador_id,
+                    categoria_id,
                     estado_id,
                     fecha_inicio,
                     fecha_fin,

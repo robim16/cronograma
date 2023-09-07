@@ -22,13 +22,13 @@ class CronogramaController extends Controller
         $rol = $user->rol;
 
         $actividades = Actividad::select('id', 'descripcion as title', 'fecha_inicio as start',
-            'fecha_fin as end', 'colaborador_id', 'estado_id', 'color')
+            'fecha_fin as end', 'colaborador_id', 'estado_id', 'color', 'categoria_id')
             ->when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
                 return $query->where('colaborador_id', $user->colaborador->id);
             })
             ->whereDate('fecha_inicio', '>=', $request->start)
             ->whereDate('fecha_fin', '<=', $request->end)
-            ->with(['colaborador', 'estado'])
+            ->with(['colaborador', 'estado', 'categoria'])
             ->get();
 
 
@@ -45,8 +45,10 @@ class CronogramaController extends Controller
                 'extendedProps'=> [
                     'colaborador' => $event->colaborador->nombres.' '.$event->colaborador->apellidos,
                     'estado' => $event->estado->nombre,
+                    'categoria' => $event->categoria->nombre,
                     'colaborador_id' => $event->colaborador->id,
                     'estado_id' => $event->estado->id,
+                    'categoria_id' => $event->categoria->id,
                 ]
             ];
         }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ActividadController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\CategoriaController;
 use App\Http\Controllers\Api\ColaboradorController;
 use App\Http\Controllers\Api\EstadoController;
 use App\Http\Controllers\Api\RolController;
@@ -26,6 +27,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('colaboradores')->group(function () {
     Route::get('/', [ColaboradorController::class, 'index']);
+});
+
+Route::prefix('categorias')->group(function () {
+    Route::get('/', [CategoriaController::class, 'index']);
 });
 
 Route::prefix('estados')->group(function () {
