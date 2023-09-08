@@ -17,7 +17,8 @@ class Actividad extends Model
         'categoria_id',
         'colaborador_id',
         'estado_id',
-        'color'
+        'color',
+        'observaciones'
     ];
 
     public function categoria()

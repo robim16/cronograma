@@ -100,7 +100,7 @@
             </div>
         </li> --}}
         <!-- Notifications Dropdown Menu -->
-        <div id="notificaciones">
+        {{-- <div id="notificaciones">
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
@@ -115,7 +115,6 @@
                             @click.prevent="readNotification(item.id, item.data.datos.actividad.url)">
                             <i class="fas fa-envelope mr-2"></i>
                             @{{ item.data.data.actividad.actividad}} @{{item.data.data.actividad.fecha}}
-                            {{-- <span class="float-right text-muted text-sm">3 mins</span> --}}
                         </a>
                     </div>
                     <div v-else>
@@ -125,7 +124,7 @@
                     <a href="#" class="dropdown-item dropdown-footer">Ver Todas las Notificationes</a>
                 </div>
             </li>
-        </div>
+        </div> --}}
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>

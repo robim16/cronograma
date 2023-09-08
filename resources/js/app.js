@@ -31,6 +31,6 @@ const app = new Vue({
     el: '#app',
 });
 
-if (document.getElementById('notificaciones')) {
-    require('./admin/notifications');
-}
+// if (document.getElementById('notificaciones')) {
+//     require('./admin/notifications');
+// }

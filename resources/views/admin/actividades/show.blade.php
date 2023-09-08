@@ -39,6 +39,7 @@
                                 <th>Fecha de inicio</th>
                                 <th>Fecha de fin</th>
                                 <th>Colaborador</th>
+                                <th>Categoría</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -51,6 +52,7 @@
                                 <td>{{ $actividad->fecha_inicio }}</td>
                                 <td>{{ $actividad->fecha_fin }}</td>
                                 <td>{{ $actividad->colaborador->nombres }} {{ $actividad->colaborador->apellidos }}</td>
+                                <td>{{ $actividad->categoria->nombre }}</td>
                                 <td>{{ $actividad->estado->nombre }}</td>
                                 <td>
                                     <div class="btn-group">

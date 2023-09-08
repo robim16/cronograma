@@ -107,7 +107,7 @@ class ActividadController extends Controller
      */
     public function show(Actividad $actividade)
     {
-        $actividad = $actividade->load(['colaborador', 'estado']);
+        $actividad = $actividade->load(['colaborador', 'estado', 'categoria']);
 
         return view('admin.actividades.show', compact('actividad'));
     }

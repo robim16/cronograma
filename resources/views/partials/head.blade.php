@@ -14,10 +14,10 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
-  <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}"> --}}
   <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-  <link href="{{ asset('adminLte/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('adminLte/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+  {{-- <link href="{{ asset('adminLte/plugins/toastr/toastr.min.css') }}" rel="stylesheet"> --}}
+  {{-- <link href="{{ asset('adminLte/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet"> --}}
   {{-- <link href="{{ asset('adminLte/plugins/fullcalendar/main.css') }}" rel="stylesheet"> --}}
 
   <link href="{{ asset('favicon_io/favicon.ico') }}" rel="icon" type="image/x-icon" />
