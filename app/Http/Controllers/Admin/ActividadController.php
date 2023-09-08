@@ -165,7 +165,8 @@ class ActividadController extends Controller
                     ]
                 ];
 
-                $colaborador_actividad->notify(new ActividadAsignada($data));
+                // $colaborador_actividad->notify(new ActividadAsignada($data));
+                ActividadEmailJob::dispatch($colaborador_actividad, $data);
             }
            
     

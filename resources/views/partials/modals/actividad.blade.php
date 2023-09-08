@@ -53,6 +53,14 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="fecha_fin">Observaciones</label>
+                        <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control">
+                            
+                        </textarea>
+                        <small class="form-text error-message" id="observaciones-error"></small>
+                    </div>
+
+                    <div class="form-group">
                         <label for="estado_id">Estado</label>
                         <select name="estado_id" id="estado_id" class="form-control">
                             <option value="">Seleccione</option>

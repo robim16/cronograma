@@ -86,6 +86,7 @@
                     $('#categoria_id').val('');
                     $('#event_id').val('');
                     $('#color').val('');
+                    $('#observaciones').val('');
                     
                     $('#colaborador_id').html('');
                     $('#categoria_id').html('');
@@ -177,7 +178,8 @@
                                     categoria_id: info.event.extendedProps.categoria_id,
                                     fecha_inicio: info.event.startStr,
                                     fecha_fin: info.event.endStr,
-                                    color: info.event.backgroundColor
+                                    color: info.event.backgroundColor,
+                                    observaciones: info.event.extendedProps.observaciones
                                 })
                                     .then( function (res) {
                                     
@@ -211,6 +213,7 @@
                             
                             $('#descripcion').val(info.event.title);
                             $('#event_id').val(info.event.id);
+                            $('#observaciones').val(info.event.extendedProps.observaciones);
 
                             $('#estado_id').val('');
                             $('#categoria_id').val('');
@@ -347,6 +350,7 @@
                 let fecha_inicio = $('#fecha_inicio').val();
                 let fecha_fin = $('#fecha_fin').val();
                 let color = $('#color').val();
+                let observaciones = $('#observaciones').val();
 
     
                 axios.post(`${SITEURL}/api/actividades`, {
@@ -356,7 +360,8 @@
                     estado_id,
                     fecha_inicio,
                     fecha_fin,
-                    color
+                    color,
+                    observaciones
                 })
                     .then( function (res) {
                         toastr.success('Se ha creado la actividad exitosamente.')
@@ -386,6 +391,7 @@
                 let fecha_inicio = $('#fecha_inicio').val();
                 let fecha_fin = $('#fecha_fin').val();
                 let color = $('#color').val();
+                let observaciones = $('#observaciones').val();
     
                 axios.put(`${SITEURL}/api/actividades/${id}`, {
                     descripcion,
@@ -394,7 +400,8 @@
                     estado_id,
                     fecha_inicio,
                     fecha_fin,
-                    color
+                    color,
+                    observaciones
                 })
                     .then( function (res) {
                         
