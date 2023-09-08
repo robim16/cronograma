@@ -178,7 +178,11 @@
                                 <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                            </div>`;
+                            </div>
+                            
+                            <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
+                                <i class="fa fa-edit"></i>
+                            </button>`;
                         @endif
                     }
                 },

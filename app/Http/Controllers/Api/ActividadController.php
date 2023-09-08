@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ActividadRequest;
+use App\Jobs\ActividadEmailJob;
 use App\Models\Actividad;
 use App\Models\Colaborador;
 use App\Models\Role;
@@ -74,7 +75,9 @@ class ActividadController extends Controller
                 ]
             ];
 
-            $colaborador->notify(new ActividadAsignada($data));
+            // $colaborador->notify(new ActividadAsignada($data));
+
+            ActividadEmailJob::dispatch($colaborador, $data);
 
 
             return $actividad;
@@ -118,46 +121,41 @@ class ActividadController extends Controller
         try {
             
 
-            // $user = auth()->user();
-
-            // $rol = $user->role_id;
-
-
-            // if ($rol == Role::ADMINISTRADOR || ($rol == Role::COLABORADOR)) {
+            
                
-                $colaborador_actividad = $actividade->colaborador_id;
+            $colaborador_actividad = $actividade->colaborador_id;
     
             
-                $request->merge([
-                    'fecha_inicio' => date('Y-m-d', strtotime($request->fecha_inicio)),
-                    'fecha_fin' => date('Y-m-d', strtotime($request->fecha_fin)),
-                ]);
+            $request->merge([
+                'fecha_inicio' => date('Y-m-d', strtotime($request->fecha_inicio)),
+                'fecha_fin' => date('Y-m-d', strtotime($request->fecha_fin)),
+            ]);
     
-                $actividad = $actividade->update($request->all());
+            $actividad = $actividade->update($request->all());
+
+            if ($colaborador_actividad != $request->colaborador_id) {
+                $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
+
+                $msg = 'Usted tiene una nueva actividad asignada';
+
+                $data = [
+                    'actividad' => [
+                        'msj' => $msg,
+                        'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
+                        'actividad' => $actividade->descripcion,
+                        'fecha' => $actividade->fecha_inicio,
+                        'url' => url('/admin/actividad/'.$actividade->id)
+                    ]
+                ];
+
+                // $colaborador_actividad->notify(new ActividadAsignada($data));
+
+                ActividadEmailJob::dispatch($colaborador_actividad, $data);
+            }
     
-                if ($colaborador_actividad != $request->colaborador_id) {
-                    $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
-    
-                    $msg = 'Usted tiene una nueva actividad asignada';
-    
-                    $data = [
-                        'actividad' => [
-                            'msj' => $msg,
-                            'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
-                            'actividad' => $actividade->descripcion,
-                            'fecha' => $actividade->fecha_inicio,
-                            'url' => url('/admin/actividad/'.$actividade->id)
-                        ]
-                    ];
-    
-                    $colaborador_actividad->notify(new ActividadAsignada($data));
-                }
-        
-                return response()->json($actividade);
+            return response()->json($actividade);
                 
-            // } else {
-            //     return response()->json('Unauthorized', 401);
-            // }
+            
             
         } catch (\Exception $e) {
             return $e;

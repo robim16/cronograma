@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @include('admin.actividades.form');
+    @include('admin.actividades.form')
 @endsection
