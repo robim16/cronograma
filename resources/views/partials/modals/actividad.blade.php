@@ -76,7 +76,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrar_modal()">Cerrar</button>
                 <button type="button" class="btn btn-primary" onclick="event_save()">Guardar</button>
             </div>
         </div>

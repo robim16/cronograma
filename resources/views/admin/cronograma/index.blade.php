@@ -436,5 +436,10 @@
                 })
                 .catch(err => console.log(err));
         }
+
+
+        function cerrar_modal() {
+            $('#modal-actividad').modal('hide');
+        }
     </script>
 @endpush
