@@ -95,7 +95,7 @@ class ActividadController extends Controller
         } catch (\Exception $e) {
             // return $e;
             session()->flash('message', ['warning', ("Ha ocurrido un error al crear la actividad")]);
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
     }
 
@@ -174,7 +174,8 @@ class ActividadController extends Controller
             return redirect()->route('actividades.index');
 
         } catch (\Exception $e) {
-            //throw $th;
+            session()->flash('message', ['warning', ("Ha ocurrido un error al editar la actividad")]);
+            return redirect()->back()->withInput();
         }
     }
 

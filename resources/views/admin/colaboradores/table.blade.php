@@ -31,6 +31,7 @@
                             <th>Dirección</th>
                             <th>Teléfono</th>
                             <th>Email</th>
+                            <th>Rol</th>
                             <th colspan="2">Acciones</th>
                         </tr>
                     </thead>
@@ -45,6 +46,7 @@
                                 <td>{{ $colaborador->direccion }}</td>
                                 <td>{{ $colaborador->telefono }}</td>
                                 <td>{{ $colaborador->email}}</td>
+                                <td>{{ $colaborador->user->rol->nombre}}</td>
                                 <td>
                                     <a href="{{ route('colaboradores.edit', $colaborador->id)}}" class="btn btn-success btn-sm">
                                         <i class="fa fa-edit"></i>
