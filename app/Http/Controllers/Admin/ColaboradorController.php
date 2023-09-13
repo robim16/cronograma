@@ -22,6 +22,7 @@ class ColaboradorController extends Controller
     {
         $colaboradores = Colaborador::orderBy('nombres')
             ->orderBy('apellidos')
+            ->with('user.rol')
             ->get();
 
         return view('admin.colaboradores.index', compact('colaboradores'));
@@ -83,7 +84,7 @@ class ColaboradorController extends Controller
             // return $e;
 
             session()->flash('message', ['warning', ("Ha ocurrido un error al crear el colaborador")]);
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
     }
 
@@ -155,7 +156,7 @@ class ColaboradorController extends Controller
             DB::rollBack();
 
             session()->flash('message', ['warning', ("Ha ocurrido un error al edit el colaborador")]);
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
     }
 
