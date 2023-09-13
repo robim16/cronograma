@@ -49,17 +49,24 @@ class ActividadRequest extends FormRequest
 
             case 'PUT':
                 $rules = [
-                    'descripcion' => 'required',
-                    'fecha_inicio' => 'sometimes',
-                    'fecha_fin' => 'sometimes',
-                    'categoria_id' => 'required',
-                    'colaborador_id' => 'required',
+                    // 'descripcion' => 'required',
+                    // 'fecha_inicio' => 'sometimes',
+                    // 'fecha_fin' => 'sometimes',
+                    // 'categoria_id' => 'required',
+                    // 'colaborador_id' => 'required',
                     'estado_id' => 'required',
                     
                 ];
 
                 if (auth()->user()->role_id != Role::ADMINISTRADOR) {
                     $rules['observaciones'] = 'required';
+                }
+                else{
+                    $rules['descripcion'] = 'required';
+                    $rules['fecha_inicio'] = 'required';
+                    $rules['fecha_fin'] = 'required';
+                    $rules['categoria_id'] = 'required';
+                    $rules['colaborador_id'] = 'required';
                 }
 
                 break;

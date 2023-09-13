@@ -50,8 +50,8 @@
                             <tr>
                                 <td>{{ $actividad->id }}</td>
                                 <td>{{ $actividad->descripcion }}</td>
-                                <td>{{ $actividad->fecha_inicio }}</td>
-                                <td>{{ $actividad->fecha_fin }}</td>
+                                <td>{{  date('d/m/Y', strtotime($actividad->fecha_inicio)) }}</td>
+                                <td>{{ date('d/m/Y', strtotime($actividad->fecha_fin)) }}</td>
                                 <td>{{ $actividad->colaborador->nombres }} {{ $actividad->colaborador->apellidos }}</td>
                                 <td>{{ $actividad->categoria->nombre }}</td>
                                 <td>{{ $actividad->observaciones }}</td>
@@ -67,7 +67,7 @@
                                                 @method('DELETE')
                                                 @csrf
                                                 
-                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                <button type="submit" class="btn btn-danger btn-sm mx-1">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
