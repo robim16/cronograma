@@ -9,6 +9,7 @@ use App\Models\Actividad;
 use App\Models\Categoria;
 use App\Models\Colaborador;
 use App\Models\Estado;
+use App\Models\Role;
 use App\Notifications\ActividadAsignada;
 use Illuminate\Http\Request;
 
@@ -93,7 +94,7 @@ class ActividadController extends Controller
             return redirect()->route('actividades.index');
 
         } catch (\Exception $e) {
-            return $e;
+            // return $e;
             session()->flash('message', ['warning', ("Ha ocurrido un error al crear la actividad")]);
             return redirect()->back()->withInput();
         }
@@ -150,30 +151,34 @@ class ActividadController extends Controller
 
             $actividad = $actividade->update($request->all());
 
-            if ($colaborador_actividad != $request->colaborador_id) {
-                $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
-
-                $msg = 'Usted tiene una nueva actividad asignada';
-
-                $data = [
-                    'actividad' => [
-                        'msj' => $msg,
-                        'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
-                        'actividad' => $actividade->descripcion,
-                        'fecha' => $actividade->fecha_inicio,
-                        'url' => url('/admin/actividad/'.$actividade->id)
-                    ]
-                ];
-
-                // $colaborador_actividad->notify(new ActividadAsignada($data));
-                ActividadEmailJob::dispatch($colaborador_actividad, $data);
+            if (auth()->user()->role_id == Role::ADMINISTRADOR) {
+                if ($colaborador_actividad != $request->colaborador_id) {
+                    $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
+    
+                    $msg = 'Usted tiene una nueva actividad asignada';
+    
+                    $data = [
+                        'actividad' => [
+                            'msj' => $msg,
+                            'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
+                            'actividad' => $actividade->descripcion,
+                            'fecha' => $actividade->fecha_inicio,
+                            'url' => url('/admin/actividad/'.$actividade->id)
+                        ]
+                    ];
+    
+                    // $colaborador_actividad->notify(new ActividadAsignada($data));
+                    ActividadEmailJob::dispatch($colaborador_actividad, $data);
+                }
             }
            
     
             session()->flash('message', ['success', ("Se ha actualizado la actividad")]);
+
             return redirect()->route('actividades.index');
 
         } catch (\Exception $e) {
+            // return $e;
             session()->flash('message', ['warning', ("Ha ocurrido un error al editar la actividad")]);
             return redirect()->back()->withInput();
         }
