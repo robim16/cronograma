@@ -30,8 +30,12 @@
                 @can('update', App\Actividad::class)
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>
-                        <input type="text" id="descripcion" name="descripcion" class="form-control"
-                            value="{{ old('descripcion') ?? @$actividade->descripcion }}">
+                        {{-- <input type="text" id="descripcion" name="descripcion" class="form-control"
+                            value="{{ old('descripcion') ?? @$actividade->descripcion }}"> --}}
+
+                        <textarea name="descripcion" id="descripcion" cols="30" rows="4" class="form-control">
+                            {{ @$actividade->descripcion }}
+                        </textarea>
                         @if ($errors->has('descripcion'))
                             <span class="text-danger">{{ $errors->first('descripcion') }}</span>
                         @endif
@@ -86,15 +90,17 @@
                     </div>
                 @endcan
 
-                <div class="form-group">
-                    <label for="fecha_fin">Observaciones</label>
-                    <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control">
-                        {{ @$actividade->observaciones }}
-                    </textarea>
-                    @if ($errors->has('observaciones'))
-                        <span class="text-danger">{{ $errors->first('observaciones') }}</span>
-                    @endif
-                </div>
+                @can('view', App\Actividad::class)
+                    <div class="form-group">
+                        <label for="observaciones">Observaciones</label>
+                        <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control">
+                            {{ @$actividade->observaciones }}
+                        </textarea>
+                        @if ($errors->has('observaciones'))
+                            <span class="text-danger">{{ $errors->first('observaciones') }}</span>
+                        @endif
+                    </div>
+                @endcan
 
                 <div class="form-group">
                     <label for="estado_id">Estado</label>

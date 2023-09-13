@@ -29,9 +29,9 @@ class ActividadPolicy
      * @param  \App\Models\Actividad  $actividad
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Actividad $actividad)
+    public function view(User $user)
     {
-        //
+        return $user->role_id != Role::ADMINISTRADOR;
     }
 
     /**

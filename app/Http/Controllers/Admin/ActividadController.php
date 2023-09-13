@@ -93,7 +93,7 @@ class ActividadController extends Controller
             return redirect()->route('actividades.index');
 
         } catch (\Exception $e) {
-            // return $e;
+            return $e;
             session()->flash('message', ['warning', ("Ha ocurrido un error al crear la actividad")]);
             return redirect()->back();
         }

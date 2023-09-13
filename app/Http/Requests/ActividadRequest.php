@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,6 +27,8 @@ class ActividadRequest extends FormRequest
     {
         $method = $request->method();
 
+        // $rol = auth()->user()->role_id;
+
         switch($method):
 
             case 'POST':
@@ -35,8 +38,13 @@ class ActividadRequest extends FormRequest
                     'fecha_fin' => 'required',
                     'categoria_id' => 'required',
                     'colaborador_id' => 'required',
-                    'estado_id' => 'required'
+                    'estado_id' => 'required',
                 ];
+
+                if (auth()->user()->role_id != Role::ADMINISTRADOR) {
+                    $rules['observaciones'] = 'required';
+                }
+            
                 break;
 
             case 'PUT':
@@ -46,8 +54,14 @@ class ActividadRequest extends FormRequest
                     'fecha_fin' => 'sometimes',
                     'categoria_id' => 'required',
                     'colaborador_id' => 'required',
-                    'estado_id' => 'required'
+                    'estado_id' => 'required',
+                    
                 ];
+
+                if (auth()->user()->role_id != Role::ADMINISTRADOR) {
+                    $rules['observaciones'] = 'required';
+                }
+
                 break;
             case 'PATCH':
 
