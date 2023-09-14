@@ -107,8 +107,9 @@
     <script>
     
         var SITEURL = "{{ url('/') }}";
+        var table;
 
-        $('#tabla-actividades').DataTable({
+        table = $('#tabla-actividades').DataTable({
             order: [[3, 'desc']],
             dom: 'Bfrtip',
             buttons: [
@@ -230,6 +231,8 @@
         function event_delete(id) {
             axios.delete(`${SITEURL}/api/actividades/${id}`)
                 .then( function (res) {
+
+                    table.ajax.reload();
                     toastr.success('Se ha eliminado la actividad exitosamente.')
                 })
                 .catch( function (err) {
