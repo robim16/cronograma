@@ -233,6 +233,7 @@
                             $('#color').val(info.event.backgroundColor);
 
                             if (isAdmin == 0) {
+                                $('#nombre').attr('disabled', 'disabled');
                                 $('#descripcion').attr('disabled', 'disabled');
                                 $('#fecha_inicio').attr('disabled', 'disabled');
                                 $('#fecha_fin').attr('disabled', 'disabled');
@@ -385,7 +386,7 @@
                             $(`#${el}-error`).html(message);
                         }
 
-                        toastr.error('Ha ocurrido un error al crear la actividad.');
+                        toastr.error('Ha ocurrido un error al crear la actividad o verifique los datos del formulario.');
                     });  
                 
             } else {
@@ -429,7 +430,11 @@
                             }
                             else{
 
-                                toastr.error('Ha ocurrido un error al editar.');
+                                for (var [ el, message ] of Object.entries(err.response.data.errors )) {
+                                    $(`#${el}-error`).html(message);
+                                }
+
+                                toastr.error('Ha ocurrido un error al editar o verifique los datos del formulario.');
                             }
                         }
                     });  

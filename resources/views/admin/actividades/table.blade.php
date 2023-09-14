@@ -228,7 +228,7 @@
 
 
         function event_delete(id) {
-            axios.delete(`${SITEURL}/admin/actividades/${id}`)
+            axios.delete(`${SITEURL}/api/actividades/${id}`)
                 .then( function (res) {
                     toastr.success('Se ha eliminado la actividad exitosamente.')
                 })
