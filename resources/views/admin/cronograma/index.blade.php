@@ -80,6 +80,7 @@
                     start = info.startStr;
                     end = info.endStr;
                     
+                    $('#nombre').val('');
                     $('#descripcion').val('');
                     $('#estado_id').val('');
                     $('#colaborador_id').val('');
@@ -168,11 +169,14 @@
                         }).then((result) => {
                             
                             if (result.isConfirmed) {
+                                // console.log(info.event.endStr);
+                                // console.log(info.event.startStr);
     
                                 let id = info.event.id;
     
                                 axios.put(`${SITEURL}/api/actividades/${id}`, {
-                                    descripcion: info.event.title,
+                                    nombre: info.event.title,
+                                    descripcion: info.event.extendedProps.descripcion,
                                     colaborador_id: info.event.extendedProps.colaborador_id,
                                     estado_id: info.event.extendedProps.estado_id,
                                     categoria_id: info.event.extendedProps.categoria_id,
@@ -211,7 +215,8 @@
                    
                         if (result.isConfirmed) {
                             
-                            $('#descripcion').val(info.event.title);
+                            $('#nombre').val(info.event.title);
+                            $('#descripcion').val(info.event.extendedProps.descripcion);
                             $('#event_id').val(info.event.id);
                             $('#observaciones').val(info.event.extendedProps.observaciones);
 
@@ -343,6 +348,7 @@
 
             if ((start != '' && end != '') && event_id == '') {
 
+                let nombre = $('#nombre').val();
                 let descripcion = $('#descripcion').val();
                 let colaborador_id = $('#colaborador_id').val();
                 let estado_id = $('#estado_id').val();
@@ -354,6 +360,7 @@
 
     
                 axios.post(`${SITEURL}/api/actividades`, {
+                    nombre,
                     descripcion,
                     colaborador_id,
                     categoria_id,
@@ -384,6 +391,7 @@
             } else {
                 
                 let id = $('#event_id').val();
+                let nombre = $('#nombre').val();
                 let descripcion = $('#descripcion').val();
                 let colaborador_id = $('#colaborador_id').val();
                 let estado_id = $('#estado_id').val();
@@ -394,6 +402,7 @@
                 let observaciones = $('#observaciones').val();
     
                 axios.put(`${SITEURL}/api/actividades/${id}`, {
+                    nombre,
                     descripcion,
                     colaborador_id,
                     categoria_id,

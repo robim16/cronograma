@@ -120,8 +120,6 @@ class ActividadController extends Controller
     {
         try {
             
-
-            
                
             $colaborador_actividad = $actividade->colaborador_id;
     
@@ -133,24 +131,26 @@ class ActividadController extends Controller
     
             $actividad = $actividade->update($request->all());
 
-            if ($colaborador_actividad != $request->colaborador_id) {
-                $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
-
-                $msg = 'Usted tiene una nueva actividad asignada';
-
-                $data = [
-                    'actividad' => [
-                        'msj' => $msg,
-                        'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
-                        'actividad' => $actividade->descripcion,
-                        'fecha' => $actividade->fecha_inicio,
-                        'url' => url('/admin/actividad/'.$actividade->id)
-                    ]
-                ];
-
-                // $colaborador_actividad->notify(new ActividadAsignada($data));
-
-                ActividadEmailJob::dispatch($colaborador_actividad, $data);
+            if (auth()->user()->role_id == Role::ADMINISTRADOR) {
+                if ($colaborador_actividad != $request->colaborador_id) {
+                    $colaborador_actividad = Colaborador::where('id', $request->colaborador_id)->first();
+    
+                    $msg = 'Usted tiene una nueva actividad asignada';
+    
+                    $data = [
+                        'actividad' => [
+                            'msj' => $msg,
+                            'colaborador' => $colaborador_actividad->nombres.' '.$colaborador_actividad->apellidos,
+                            'actividad' => $actividade->descripcion,
+                            'fecha' => $actividade->fecha_inicio,
+                            'url' => url('/admin/actividad/'.$actividade->id)
+                        ]
+                    ];
+    
+                    // $colaborador_actividad->notify(new ActividadAsignada($data));
+    
+                    ActividadEmailJob::dispatch($colaborador_actividad, $data);
+                }
             }
     
             return response()->json($actividade);

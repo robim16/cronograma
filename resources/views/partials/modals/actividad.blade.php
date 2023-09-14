@@ -14,11 +14,21 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <input type="text" id="descripcion" name="descripcion" class="form-control"
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control"
                             value="">
-                        <small class="form-text error-message" id="descripcion-error"></small>
+                        <small class="form-text error-message" id="nombre-error"></small>
                         <input type="hidden" name="event_id" id="event_id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        {{-- <input type="text" id="descripcion" name="descripcion" class="form-control"
+                            value=""> --}}
+
+                        <textarea name="descripcion" id="descripcion" cols="30" rows="5" class="form-control">
+                        </textarea>
+                        <small class="form-text error-message" id="descripcion-error"></small>
                     </div>
 
                     <div class="form-group">
@@ -54,7 +64,9 @@
 
                     <div class="form-group">
                         <label for="fecha_fin">Observaciones</label>
-                        <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control">
+                        <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control" @if (auth()->user()->role_id == 1)
+                            disabled
+                        @endif>
                             
                         </textarea>
                         <small class="form-text error-message" id="observaciones-error"></small>
