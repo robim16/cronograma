@@ -35,6 +35,7 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Fecha de inicio</th>
                                 <th>Fecha de fin</th>
@@ -49,6 +50,7 @@
                        
                             <tr>
                                 <td>{{ $actividad->id }}</td>
+                                <td>{{ $actividad->nombre }}</td>
                                 <td>{{ $actividad->descripcion }}</td>
                                 <td>{{  date('d/m/Y', strtotime($actividad->fecha_inicio)) }}</td>
                                 <td>{{ date('d/m/Y', strtotime($actividad->fecha_fin)) }}</td>

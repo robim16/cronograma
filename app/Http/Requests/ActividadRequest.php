@@ -33,6 +33,7 @@ class ActividadRequest extends FormRequest
 
             case 'POST':
                 $rules = [
+                    'nombre' => 'required',
                     'descripcion' => 'required',
                     'fecha_inicio' => 'required',
                     'fecha_fin' => 'required',
@@ -62,6 +63,7 @@ class ActividadRequest extends FormRequest
                     $rules['observaciones'] = 'required';
                 }
                 else{
+                    $rules['nombre'] = 'required';
                     $rules['descripcion'] = 'required';
                     $rules['fecha_inicio'] = 'required';
                     $rules['fecha_fin'] = 'required';

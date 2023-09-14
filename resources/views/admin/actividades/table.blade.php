@@ -34,6 +34,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
+                            <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Fecha de inicio</th>
                             <th>Fecha de fin</th>
@@ -76,6 +77,7 @@
                     <tfoot>
                         <tr>
                             <th>Id</th>
+                            <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Fecha de inicio</th>
                             <th>Fecha de fin</th>
@@ -107,7 +109,7 @@
         var SITEURL = "{{ url('/') }}";
 
         $('#tabla-actividades').DataTable({
-            order: [[2, 'desc']],
+            order: [[3, 'desc']],
             dom: 'Bfrtip',
             buttons: [
                 'excelHtml5',
@@ -124,6 +126,7 @@
             },
             columns: [
                 { data: 'id' },
+                { data: 'nombre' },
                 { data: 'descripcion' },
                 { data: 'fecha_inicio' },
                 { data: 'fecha_fin' },
@@ -135,25 +138,25 @@
             ],
             columnDefs: [
                 {
-                    "targets": [4],
+                    "targets": [5],
                     "render": function ( data, type, row ) {
                         return `${row.colaborador.nombres} ${row.colaborador.apellidos}` 
                     }
                 },
                 {
-                    "targets": [5],
+                    "targets": [6],
                     "render": function ( data, type, row ) {
                         return `${row.categoria.nombre}` 
                     }
                 },
                 {
-                    "targets": [6],
+                    "targets": [7],
                     "render": function ( data, type, row ) {
                         return `${row.estado.nombre}` 
                     }
                 },
                 {
-                    "targets": [7],
+                    "targets": [8],
                     "render": function ( data, type, row ) {
 
                         @if(auth()->user()->role_id == 1)

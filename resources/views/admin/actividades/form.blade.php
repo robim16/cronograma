@@ -29,6 +29,16 @@
 
                 @can('update', App\Actividad::class)
                     <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control"
+                            value="{{ old('nombre') ?? @$actividade->nombre }}">
+
+                        @if ($errors->has('nombre'))
+                            <span class="text-danger">{{ $errors->first('nombre') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <label for="descripcion">Descripción</label>
                         {{-- <input type="text" id="descripcion" name="descripcion" class="form-control"
                             value="{{ old('descripcion') ?? @$actividade->descripcion }}"> --}}
