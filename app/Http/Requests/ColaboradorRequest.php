@@ -35,7 +35,7 @@ class ColaboradorRequest extends FormRequest
                     'apellidos' => 'required',
                     'direccion' => 'required',
                     'telefono' => 'required',
-                    'email' => 'required',
+                    'email' => 'required|unique:colaboradores',
                     'rol_id' => 'required',
                     'password' => 'required',
                 ];
@@ -48,7 +48,7 @@ class ColaboradorRequest extends FormRequest
                     'apellidos' => 'required',
                     'direccion' => 'required',
                     'telefono' => 'required',
-                    'email' => 'required',
+                    'email' => "required|unique:colaboradores,email,{$this->colaboradore->id}",
                     'rol_id' => 'required',
                     'password' => 'required',
                 ];
