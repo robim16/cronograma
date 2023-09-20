@@ -177,7 +177,7 @@ class ColaboradorController extends Controller
 
 
         } catch (\Exception $e) {
-            session()->flash('message', ['warning', ("Ha ocurrido un error al eliminar el colaborador")]);
+            session()->flash('message', ['warning', ("Ha ocurrido un error al eliminar el colaborador o está en uso")]);
             return redirect()->route('colaboradores.index');
         }
     }

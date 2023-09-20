@@ -100,8 +100,19 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Categoria $categoria)
     {
-        //
+        try {
+
+
+            $categoria->delete();
+            
+            session()->flash('message', ['success', ("Se ha eliminado la categoria")]);
+            return redirect()->route('categorias.index');
+
+        } catch (\Exception $e) {
+            session()->flash('message', ['warning', ("Ha ocurrido un error al eliminar o está en uso")]);
+            return redirect()->route('categorias.index');
+        }
     }
 }
