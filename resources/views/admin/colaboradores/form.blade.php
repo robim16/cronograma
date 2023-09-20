@@ -2,7 +2,14 @@
     <div class="col-md-6 mx-auto">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Crear Colaboradores</h3>
+                <h3 class="card-title">
+                    @if (!@$colaboradore)
+                        Crear
+                    @else
+                        Editar 
+                    @endif 
+                    Colaboradores
+                </h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
