@@ -10,6 +10,7 @@ use App\Models\Colaborador;
 use App\Models\Role;
 use App\Notifications\ActividadAsignada;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ActividadController extends Controller
 {
@@ -26,14 +27,34 @@ class ActividadController extends Controller
         $rol = $user->rol;
 
 
-        $actividades = Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
-            return $query->where('colaborador_id', $user->colaborador->id);
-        })
-            ->with(['colaborador', 'estado', 'categoria'])
-            ->orderBy('fecha_inicio')
-            ->get();
+        try {
+       
+            // $actividades = Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
+            //     return $query->where('colaborador_id', $user->colaborador->id);
+            // })
+            //     ->with(['colaborador', 'estado', 'categoria'])
+            //     ->orderBy('fecha_inicio')
+            //     ->get();
+    
+            // return response()->json($actividades);
+    
+            $data =  Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use ($user) {
+                return $query->where('colaborador_id', $user->colaborador->id);
+            })
+                ->with(['colaborador', 'estado', 'categoria'])
+                ->orderBy('fecha_inicio')
+                ->get();
+                
+    
+            return DataTables::of($data)
+                ->editColumn('colaborador', function(Actividad $actividad){
+                    return $actividad->colaborador->nombres.' '.$actividad->colaborador->apellidos;
+                })
+                ->toJson();
 
-        return response()->json($actividades);
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
