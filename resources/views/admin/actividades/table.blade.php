@@ -245,56 +245,12 @@
                 { data: 'categoria.nombre', name: 'categoria.nombre' },
                 { data: 'estado.nombre', name: 'estado.nombre' },
                 { 
-                    data: 'id',
-                    name: 'id',
+                    data: 'actions',
+                    name: 'actions',
                     orderable: false, 
                     searchable: false
                 },
 
-            ],
-            columnDefs: [
-                // {
-                //     "targets": [5],
-                //     "render": function ( data, type, row ) {
-                //         return `${row.colaborador.nombres} ${row.colaborador.apellidos}` 
-                //     }
-                // },
-                {
-                    "targets": [8],
-                    "render": function ( data, type, row ) {
-
-                        @if(auth()->user()->role_id == 1)
-
-                            return `<div class="btn-group">
-                                <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-
-                                <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-
-                                <button class="btn btn-danger btn-sm" onclick="event_delete(${data})">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                
-                            </div>` 
-                        @else
-
-                            return `<div class="btn-group">
-                                <button class="btn btn-primary btn-sm mx-2" onclick="event_view(${data})">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                            </div>
-                            
-                            <button class="btn btn-success btn-sm mx-2" onclick="event_edit(${data})">
-                                <i class="fa fa-edit"></i>
-                            </button>`;
-                        @endif
-                    }
-                },
-
-                
             ],
             language: {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json"

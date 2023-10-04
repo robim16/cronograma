@@ -44,9 +44,13 @@ class ActividadController extends Controller
                 ->with(['colaborador', 'estado', 'categoria'])
                 ->orderBy('fecha_inicio')
                 ->get();
-                
+
     
             return DataTables::of($data)
+                ->addColumn('actions', function($row){
+                    return view('admin.actividades.datatables.acciones')->with("id", $row->id);
+                })
+                ->rawColumns(['actions'])
                 ->editColumn('colaborador', function(Actividad $actividad){
                     return $actividad->colaborador->nombres.' '.$actividad->colaborador->apellidos;
                 })
