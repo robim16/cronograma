@@ -28,15 +28,6 @@ class ActividadController extends Controller
 
 
         try {
-       
-            // $actividades = Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use($user) {
-            //     return $query->where('colaborador_id', $user->colaborador->id);
-            // })
-            //     ->with(['colaborador', 'estado', 'categoria'])
-            //     ->orderBy('fecha_inicio')
-            //     ->get();
-    
-            // return response()->json($actividades);
     
             $data =  Actividad::when($rol->id != Role::ADMINISTRADOR, function ($query) use ($user) {
                 return $query->where('colaborador_id', $user->colaborador->id);

@@ -104,7 +104,7 @@
                     </ul>
                 </li>
 
-                @if (auth()->user()->role_id == 1)
+                {{-- @if (auth()->user()->role_id == 1) --}}
                
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -179,7 +179,7 @@
                             </li>
                         </ul>
                     </li>
-                @endif
+                {{-- @endif --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
